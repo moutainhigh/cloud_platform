@@ -1,0 +1,11 @@
+jdk8/
+target/
+out/
+.vertx/
+var
+var/log
+var/
+.DS_Store
+.idea/
+*.log
+classes/

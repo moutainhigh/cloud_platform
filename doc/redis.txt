@@ -1,0 +1,22 @@
+apt-get install redis-server
+
+检查Redis服务器程序,执行ps -aux|grep redis
+
+通过启动命令检查Redis服务器状态,执行：netstat -nlt|grep 6379
+
+
+redis配置密码
+
+1.通过配置文件进行配置
+安装的redis配置文件通常在/etc/redis/redis.conf中，打开配置文件找到
+#requirepass myRedisPass
+去掉行前的注释，并修改密码为所需的密码,保存文件
+
+重启redis
+sudo service redis-server restart  
+#或者  
+sudo service redis-server stop  
+sudo redis-server /etc/redis.conf 
+
+
+redis-cli -h 127.0.0.1 -p 6379 -a xjxcloud@20161025 

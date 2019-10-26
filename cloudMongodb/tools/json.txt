@@ -1,0 +1,35 @@
+{"zl_cloud":"1.0","id":1,"method":"RING_UPLOAD_IMAGE","params":{"type":"WARN","images":[{"path":"/test/a.jpg"}]}}
+{"zl_cloud":"1.0","id":1,"method":"SET_TEMP_SVC_TYPE","params":{"type":"REG"}}
+{"zl_cloud":"1.0","id":1,"method":"SET_TEMP_SVC_TYPE","params":{"type":"FIND_PASSWORD"}}
+{"zl_cloud":"1.0","id":1,"method":"GET_VERIFICATION_CODE","params":{"phone_num":"18020136525"}}
+{"zl_cloud":"1.0","id":1,"method":"REG_USER_TERMINAL","params":{"verification_code":"888888","hashed_pwd":"1"}}
+{"zl_cloud":"1.0","id":1,"method":"DEL_DEV_FROM_USER","params":{"dev_id":"router_temp"}}
+{"zl_cloud":"1.0","id":1,"method":"UPLOAD_USER_REPORT","params":{"report_text":"UPLOAD_USER_REPORT REPORT","report_pics":[]}}
+{"zl_cloud":"1.0","id":1,"method":"UPLOAD_APP_EXCEPTION_REPORT","params":{"phone_type":"phone_type","phone_version":"phone_version","app_version":"app_version","exception":"exception"}}
+{"zl_cloud":"1.0","id":1,"method":"RING_UPLOAD_IMAGE","params":{"type":"SNAPSHOT","user_id":"userID_1a","request_id":"1","images":[{"path":"/test/a.jpg"}]}}
+{"zl_cloud":"1.0","id":1,"method":"GET_ACCOUNT_INFO","params":null}
+{"zl_cloud":"1.0","id":1,"method":"LOGIN","params":{"login_id":"userID_1a","hashed_pwd":"1"}}
+{"zl_cloud":"1.0","id":1,"method":"LOGIN_BY_CODE","params":{"phone_num":"18020136525","code":"888888"}}
+{"zl_cloud":"1.0","id":1,"method":"CHANGE_PWD","params":{"old_hashed_pwd":"1","new_hashed_pwd":"2"}}
+{"zl_cloud":"1.0","id":1,"method":"RESET_PWD","params":{"verification_code":"888888","new_hashed_pwd":"3"}}
+{"zl_cloud":"1.0","id":1,"method":"ADD_DEV_TO_USER","params":{"dev_id":"router_temp","is_encrypted":false}}
+{"zl_cloud":"1.0","id":1,"method":"SHARE_DEV","params":{"shared_dev_id":"router_1","to_user_id":"userID_2a"}}
+{"zl_cloud":"1.0","id":1,"method":"CANCEL_SHARE_DEV","params":{"shared_dev_id":"router_1","to_user_id":"userID_2a"}}
+{"zl_cloud":"1.0","id":1,"method":"GET_DEV_LIST","params":null}
+{"zl_cloud":"1.0","id":1,"method":"RELAY_MSG","params":{"original_msg":"","to":""}}
+{"zl_cloud":"1.0","id":1,"method":"REG_DEV_TERMINAL","params":{"dev_name":"router_register","hashed_pwd":"1","type":2}}
+{"zl_cloud":"1.0","id":1,"method":"HEARTBEAT","params":null}
+{"zl_cloud":"1.0","id":1,"method":"SET_NICKNAME","params":{"nickname":"nickNameTest"}}
+{"zl_cloud":"1.0","id":1,"method":"SET_DEV_NICKNAME","params":{"dev_id":"router_1","nickname":"nickNameTest"}}
+{"zl_cloud":"1.0","id":1,"method":"GET_DEV_OWNER","params":{"dev_id":"router_1"}}
+{"zl_cloud":"1.0","id":1,"method":"RING_CALL_ACCEPT","params":{"dev_id":"ring_1","call_request_id":1}}
+{"zl_cloud":"1.0","id":1,"method":"RING_CALL_REJECT","params":{"dev_id":"ring_1","call_request_id":1}}
+{"zl_cloud":"1.0","id":1,"method":"RING_SEND_VOICE","params":{"to":"ring_1","voice":[{"path":"/test/a.jpg"}]}}
+{"zl_cloud":"1.0","id":1,"method":"RING_SNAPSHOT","params":{"dev_id":"ring_1"}}
+{"zl_cloud":"1.0","id":1,"method":"RING_GET_VISITOR_SESSION_INFO","params":{"dev_id":"","human_check":1,"lamp_switch":1,"warning_time":4,"cont_cap_num":4,"ring_tone":3,"ring_volumn":4}}
+{"zl_cloud":"1.0","id":1,"method":"RING_SNAPSHOT","params":{"dev_id":"ring_1"}}
+{"zl_cloud":"1.0","id":1,"method":"RING_GET_STATUS","params":{"dev_id":"ring_1"}}
+{"zl_cloud":"1.0","id":1,"method":"RING_CALL_REQUEST","params":{"images":[{"path":"/test/a.jpg"}]}}
+{"zl_cloud":"1.0","id":1,"method":"RING_GET_WARNING_INFO","params":{"dev_id":"ring_1","start_time":"2013-10-20 00:00:00","end_time":"2015-11-26 00:00:00"}}
+{"zl_cloud":"1.0","id":1,"method":"RING_GET_VISITOR_SESSION_INFO","params":{"dev_id":"ring_1","start_time":"2013-10-20 00:00:00","end_time":"2015-11-26 00:00:00"}}
+{"zl_cloud":"1.0","id":1,"method":"RING_UPDATE_STATUS","params":{"battery":50}}

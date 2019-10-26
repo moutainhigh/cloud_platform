@@ -1,0 +1,99 @@
+安装 MongoDB
+　　sudo apt-get install mongodb
+
+　　sudo apt-get install mongodb
+
+
+
+关闭／启动
+
+　　sudo service mongodb stop
+　　sudo service mongodb start
+
+
+
+设置数据库连接密码：
+
+　　在跟目录创建文件夹： data/db
+
+　　关闭现有服务。
+
+　　　　sudo service mongodb stop
+
+　　重新启动服务
+
+　　　　$ mongod –auth
+
+　　创建连接用户
+
+　　　　$ mongo
+
+　　　　> use admin
+
+　　　　switched to db admin
+
+　　　　> db.addUser("root","1983")
+
+　　关闭服务（直接在 mongod 启动的命令窗口 “ctrl + C”）
+
+　　重启服务：
+
+　　　　$: mongod –auth
+
+　　查看是否开始验证：、
+
+　　　　$ mongo
+
+　　　　MongoDB shell version: 2.0.4
+
+　　　　connecting to: test
+
+　　　　> use admin
+
+　　　　switched to db admin
+
+　　　　> show collections
+
+　　　　Fri Mar 14 09:07:08 uncaught exception: error: {
+
+　　　　"$err" : "unauthorized db:admin lock type:-1 client:127.0.0.1",
+
+　　　　"code" : 10057
+
+　　　　}
+
+　　有提示 链接错误。
+
+　　进行用户验证：
+
+　　　　> db.auth("root","1983")
+
+　　　　1
+
+　　重新查看就可以查看数据集
+
+　　　　> show collections
+
+　　　　system.indexes
+
+　　　　system.users
+
+
+设置客户端连接：
+
+　　默认安装的话只允许 127.0.0.1 的IP 连接.
+
+　　需要修改/etc/mongodb.conf 注释下列记录：
+
+　　打开文件：
+
+　　　　$ sudo gedit /etc/mongodb.conf
+
+　　注释记录：
+
+　　　　#bind_ip = 0.0.0.0
+
+开启认证
+修改配置文件/etc/MongoDB.conf
+
+打开auth的注释，设置为auth = true

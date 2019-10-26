@@ -1,0 +1,12 @@
+dd if=/dev/zero of=/extraswap bs=1M count=512
+
+mkswap /extraswap
+swapon /extraswap
+
+swapon -s
+
+swapoff /extraswap
+
+vi /etc/fstab
+
+/extraswap swap swap defaults 0 0

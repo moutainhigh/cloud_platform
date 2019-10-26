@@ -1,0 +1,32 @@
+
+添加mongodb签名到APT
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+
+创建mongodb-org-3.0.list文件
+echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+
+更新软件源列表
+sudo apt-get update
+
+安装mongodb（默认是安装最新版）
+sudo apt-get install -y mongodb-org
+
+安装特定版本的mongodb：
+sudo apt-get install -y mongodb-org=3.0.6 mongodb-org-server=3.0.6 mongodb-org-shell=3.0.6 mongodb-org-mongos=3.0.6 mongodb-org-tools=3.0.6
+
+启动mongodb：
+sudo service mongod start
+
+停止mongodb：
+sudo service mongod stop
+
+重启mongodb
+sudo service mongod restart
+
+创建账户
+db.createUser({user:"root",pwd:"Qin12302",roles:[{role:"readWrite", db:"hycloudRing"}]});
+
+查看数据库版本
+db.version();
+
+
