@@ -3,10 +3,12 @@ package cn.sensordb2.stcloud.server;
 import cn.sensordb2.stcloud.core.Database;
 import cn.sensordb2.stcloud.core.VertxInstance;
 import cn.sensordb2.stcloud.httpApiServer.HttpApiServer;
+import cn.sensordb2.stcloud.ros.RosInstance;
 import cn.sensordb2.stcloud.server.common.Globals;
 import cn.sensordb2.stcloud.server.singleServer.Server;
 import cn.sensordb2.stcloud.socketIOServer.HYSocketIOServer;
 import cn.sensordb2.stcloud.util.Tools;
+import edu.wpi.rail.jrosbridge.Ros;
 import io.vertx.core.Vertx;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -39,6 +41,11 @@ public class Startup {
 		}
 
 		try {
+			//初始化ros对象,与ros Master 建立连接
+			logger.info("初始化rosInstance");
+			Ros ros = RosInstance.getInstance().getRos();
+			logger.info("与ros Master 通过rosBridge建立 websocket连接");
+			ros.connect();
 			HYSocketIOServer.getInstance().run();
 		} catch (Exception e) {
 			logger.error(String.format("HYSocketIOServer raise an exception:%s", Tools.getTrace(e)));

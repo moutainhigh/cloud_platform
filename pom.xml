@@ -186,42 +186,56 @@
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
-<!--
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/edu.wpi.rail/jrosbridge &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>edu.wpi.rail</groupId>-->
+<!--            <artifactId>jrosbridge</artifactId>-->
+<!--            <version>0.2.0</version>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/de.dfki.cos.basys.common/de.dfki.cos.basys.common.jrosbridge -->
         <dependency>
-            <groupId>com.aliyun.alicom</groupId>
-            <artifactId>alicom-mns-receive-sdk</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/aliLib/alicom-mns-receive-sdk-0.0.1-SNAPSHOT.jar</systemPath>
+            <groupId>de.dfki.cos.basys.common</groupId>
+            <artifactId>de.dfki.cos.basys.common.jrosbridge</artifactId>
+            <version>0.2.6</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>3.2.2</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/aliLib/aliyun-java-sdk-core-3.2.2.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-dybaseapi</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/aliLib/aliyun-java-sdk-dybaseapi-1.0.0-SNAPSHOT.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.aliyun.mns</groupId>
-            <artifactId>aliyun-sdk-mns</artifactId>
-            <version>1.1.8</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/aliLib/aliyun-sdk-mns-1.1.8.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpasyncclient</artifactId>
-            <version>4.1</version>
-        </dependency>
--->
+        <!--
+                <dependency>
+                    <groupId>com.aliyun.alicom</groupId>
+                    <artifactId>alicom-mns-receive-sdk</artifactId>
+                    <version>0.0.1-SNAPSHOT</version>
+                    <scope>system</scope>
+                    <systemPath>${basedir}/aliLib/alicom-mns-receive-sdk-0.0.1-SNAPSHOT.jar</systemPath>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.aliyun</groupId>
+                    <artifactId>aliyun-java-sdk-core</artifactId>
+                    <version>3.2.2</version>
+                    <scope>system</scope>
+                    <systemPath>${basedir}/aliLib/aliyun-java-sdk-core-3.2.2.jar</systemPath>
+                </dependency>
+                <dependency>
+                    <groupId>com.aliyun</groupId>
+                    <artifactId>aliyun-java-sdk-dybaseapi</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
+                    <scope>system</scope>
+                    <systemPath>${basedir}/aliLib/aliyun-java-sdk-dybaseapi-1.0.0-SNAPSHOT.jar</systemPath>
+                </dependency>
+                <dependency>
+                    <groupId>com.aliyun.mns</groupId>
+                    <artifactId>aliyun-sdk-mns</artifactId>
+                    <version>1.1.8</version>
+                    <scope>system</scope>
+                    <systemPath>${basedir}/aliLib/aliyun-sdk-mns-1.1.8.jar</systemPath>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpasyncclient</artifactId>
+                    <version>4.1</version>
+                </dependency>
+        -->
 
 
     </dependencies>
