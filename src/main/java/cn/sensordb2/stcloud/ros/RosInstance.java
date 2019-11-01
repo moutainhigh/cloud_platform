@@ -9,7 +9,7 @@ public class RosInstance {
 
     private Ros ros;
     //ros master 所在的主机地址
-    private String hostName = "192.168.1.116";
+    private String hostName = "192.168.1.164";
     //默认端口 9090
     private Integer port = 9090;
     //默认协议 websocket  http:ws  https:wss
