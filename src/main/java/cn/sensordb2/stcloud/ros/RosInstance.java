@@ -5,7 +5,7 @@ import edu.wpi.rail.jrosbridge.Ros;
 
 public class RosInstance {
 
-    private static volatile RosInstance  rosInstance = null;
+    private static volatile RosInstance rosInstance = null;
 
     private Ros ros;
     //ros master 所在的主机地址
@@ -48,17 +48,21 @@ public class RosInstance {
     }
 
     private RosInstance(String hostName, int port, WebSocketType type) {
-        new Ros(hostName, port, type);
+        this.ros = new Ros(hostName, port, type);
     }
+
     private RosInstance(String hostName, int port) {
-        new Ros(hostName,port,type);
+        this.ros = new Ros(hostName, port, type);
     }
+
     private RosInstance(String hostName) {
-        new Ros(hostName,port,type);
+        this.ros = new Ros(hostName, port, type);
     }
+
     private RosInstance() {
-        new Ros(hostName,port,type);
+        this.ros = new Ros(hostName, port, type);
     }
+
     public static RosInstance getInstance() {
         if (rosInstance == null) {
             synchronized (RosInstance.class) {
@@ -69,6 +73,7 @@ public class RosInstance {
         }
         return rosInstance;
     }
+
     public static RosInstance getInstance(String hostName) {
         if (rosInstance == null) {
             synchronized (RosInstance.class) {
@@ -90,7 +95,8 @@ public class RosInstance {
         }
         return rosInstance;
     }
-    public static RosInstance getInstance(String hostName,Integer port , WebSocketType type) {
+
+    public static RosInstance getInstance(String hostName, Integer port, WebSocketType type) {
         if (rosInstance == null) {
             synchronized (RosInstance.class) {
                 if (rosInstance == null) {

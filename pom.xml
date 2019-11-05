@@ -186,19 +186,19 @@
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/edu.wpi.rail/jrosbridge &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>edu.wpi.rail</groupId>-->
-<!--            <artifactId>jrosbridge</artifactId>-->
-<!--            <version>0.2.0</version>-->
-<!--        </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/de.dfki.cos.basys.common/de.dfki.cos.basys.common.jrosbridge -->
+<!-- https://mvnrepository.com/artifact/edu.wpi.rail/jrosbridge-->
         <dependency>
-            <groupId>de.dfki.cos.basys.common</groupId>
-            <artifactId>de.dfki.cos.basys.common.jrosbridge</artifactId>
-            <version>0.2.6</version>
+            <groupId>edu.wpi.rail</groupId>
+            <artifactId>jrosbridge</artifactId>
+            <version>0.2.0</version>
         </dependency>
+
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/de.dfki.cos.basys.common/de.dfki.cos.basys.common.jrosbridge &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>de.dfki.cos.basys.common</groupId>-->
+<!--            <artifactId>de.dfki.cos.basys.common.jrosbridge</artifactId>-->
+<!--            <version>0.2.6</version>-->
+<!--        </dependency>-->
 
         <!--
                 <dependency>

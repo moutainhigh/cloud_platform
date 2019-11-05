@@ -12,12 +12,12 @@ public class StartTakeoff {
     public static void main(String[] args){
         Vertx vertx = Vertx.vertx();
         NetClient client = vertx.createNetClient();
-        client.connect(9000, "59.110.46.27", res -> {
+        client.connect(9000, "127.0.0.1", res -> {
             if (res.succeeded()) {
                 System.out.println("Connected!");
                 Socket socket = null;
                 try {
-                    socket = new Socket("59.110.46.27",9000);
+                    socket = new Socket("127.0.0.1",9000);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -40,7 +40,7 @@ public class StartTakeoff {
                     outputStream.write("\r\n".getBytes());
                     outputStream.flush();//数据发送
                     outputStream.close();
-                } catch (IOException e) {
+                } catch (IOException  e) {
                     e.printStackTrace();
                 }
 
