@@ -1,5 +1,7 @@
 package cn.sensordb2.stcloud.control;
 
+import cn.sensordb2.stcloud.ros.Quaternion;
+import cn.sensordb2.stcloud.ros.QuaternionUtil;
 import cn.sensordb2.stcloud.ros.RosClock;
 import cn.sensordb2.stcloud.ros.RosInstance;
 import cn.sensordb2.stcloud.ros.RosPose;
@@ -43,15 +45,19 @@ public class AdjustAngle extends RequestHandler {
 //            }
 //        }
 //    }'
+        Quaternion quaternion = QuaternionUtil
+                .Euler2Quaternion(jsonObject.getJsonObject("params").getDouble("yaw"),
+                        jsonObject.getJsonObject("params").getDouble("pitch"),
+                        jsonObject.getJsonObject("params").getDouble("roll"));
         jsonMsg.put("header", new JsonObject().put("stamp", RosClock.NOW).put("frame_id", "world"));
         jsonMsg.put("pose", new JsonObject()
                 .put("position", new JsonObject().put("x", RosPose.POSE.getPosition().getX())
                         .put("y", RosPose.POSE.getPosition().getY())
                         .put("z", RosPose.POSE.getPosition().getZ()))
-                .put("orientation", new JsonObject().put("x", RosPose.POSE.getOrientation().getX())
-                        .put("y", RosPose.POSE.getOrientation().getY())
-                        .put("z", RosPose.POSE.getOrientation().getZ())
-                        .put("w", RosPose.POSE.getOrientation().getW())));
+                .put("orientation", new JsonObject().put("x", quaternion.getX())
+                        .put("y", quaternion.getY())
+                        .put("z", quaternion.getZ())
+                        .put("w", quaternion.getW())));
         Message poseMsg = new Message(jsonMsg.toString());
         poseTopic.publish(poseMsg);
 //        PushMessageUtil.pushMessage(connectionInfo, request, jsonObject, connectionInfo.getTo(),
