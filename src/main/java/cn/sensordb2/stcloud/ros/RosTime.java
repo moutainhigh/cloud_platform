@@ -30,11 +30,21 @@ public class RosTime {
         this.secs = secs;
     }
 
+
+
     public Double getNsecs() {
         return nsecs;
     }
 
     public void setNsecs(Double nsecs) {
         this.nsecs = nsecs;
+    }
+
+    @Override
+    public String toString() {
+        return "RosTime{" +
+                "secs=" + secs +
+                ", nsecs=" + nsecs +
+                '}';
     }
 }

@@ -19,7 +19,6 @@ public class Bind extends RequestHandler {
             result.put("code",1);
             result.put("message","bind success");
             connectionInfo.setTo(request.getParams().getString("droneName"));
-
             ResponseHandlerHelper.success(connectionInfo, request,result);
         }else if (request.getParams().getString("methodName").equals("UnBind")){
             ClientManager.getInstance().removeBindConnection(connectionInfo.getUserID(),request.getParams().getString("droneName"));

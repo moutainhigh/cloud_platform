@@ -35,7 +35,7 @@ public class Login extends RequestHandler {
                 return;
             } else {
                 JsonObject userRes = queryResult.result().get(0);
-                if (userRes.getValue("password").toString()
+                if (userRes.getValue("hashedPassword").toString()
                         .equals(jsonObject.getValue("hashedPassword").toString())) {
                     connectionInfo.setUserID(request.getParams().getString("username"));
                     request.setResponseSuccess(true);

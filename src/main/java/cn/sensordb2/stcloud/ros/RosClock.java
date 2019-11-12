@@ -19,5 +19,11 @@ public class RosClock {
                 NOW = new RosTime(message);
             }
         });
+        try {
+            System.out.println(NOW);
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
