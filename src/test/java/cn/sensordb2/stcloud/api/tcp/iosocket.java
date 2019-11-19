@@ -66,17 +66,21 @@ public class iosocket {
             Thread.sleep(1000);
             System.out.println("starttakeoffrequest");
             //takeoff test
+//            JsonObject obj1 = new JsonObject();
+//            obj1.put("version", 1);
+//            obj1.put("method", "control.StartTakeoff").put("params",
+//                    new JsonObject().put("height", 10)).put("id", 2);
+//            System.out.println("hello");
+//            socket.emit("request", obj1.toString());
+            //landing test
             JsonObject obj1 = new JsonObject();
             obj1.put("version", 1);
-            obj1.put("method", "control.StartTakeoff").put("params",
-                    new JsonObject().put("height", 10)).put("id", 2);
-            System.out.println("hello");
+            obj1.put("method", "control.StartLanding").put("id", 2);
+            System.out.println("control.StartLanding");
             socket.emit("request", obj1.toString());
 
-            while (true) {
-
                 Thread.sleep(1000);
-            }
+
 
 
         } catch (Exception ex) {
