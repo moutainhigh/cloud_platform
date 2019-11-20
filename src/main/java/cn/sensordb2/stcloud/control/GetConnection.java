@@ -23,25 +23,43 @@ public class GetConnection extends RequestHandler {
         mongoClient.find("droneuser", query, queryResult -> {
             if (queryResult.failed()) {
                 logger.error("服务器内部异常", connectionInfo);
-
                 //ResponseHandlerHelper.success(connectionInfo, request, result);
                 return;
             }
             for(JsonObject json : queryResult.result()){
-                String droneconnection = json.getString("user");
-                if (ClientManager.getInstance().getLocalConnectionInfo(droneconnection) != null) {
-                    if (ClientManager.getInstance().getLocalConnectionInfo(droneconnection).getFrom() == null) {
-                        json.put("bindStatus",0);
-                        recordList.add(json);
-                    } else {
-                        if (ClientManager.getInstance().getLocalConnectionInfo(droneconnection).getFrom().equals(connectionInfo.getUserID())) {
-                            json.put("bindStatus",1);
-                            recordList.add(json);
-                        }
-                    }
+//                String droneconnection = json.getString("user");
+//                if (ClientManager.getInstance().getLocalConnectionInfo(droneconnection) != null) {
+//                    if (ClientManager.getInstance().getLocalConnectionInfo(droneconnection).getFrom() == null) {
+//                        json.put("bindStatus",0);
+//                        recordList.add(json);
+//                    } else {
+//                        if (ClientManager.getInstance().getLocalConnectionInfo(droneconnection).getFrom().equals(connectionInfo.getUserID())) {
+//                            json.put("bindStatus",1);
+//                            recordList.add(json);
+//                        }
+//                    }
+//                }
+                if (connectionInfo.getTo().equals(json.getString("user"))) {
+                    json.put("bindStatus", 1);
+                    recordList.add(json);
+                } else {
+                    json.put("bindStatus", 0);
+                    recordList.add(json);
                 }
             }
-            JsonObject result = new JsonObject().put("recordList", recordList);
+//            {
+//                "version": 1,
+//                    "result": {
+//                "code": "#",
+//                        "message":"#";
+//                  “uavs”:{“#”，”#”}
+//            },
+//                "id": "#"
+//            }
+
+            JsonObject result = new JsonObject().put("uavs", recordList);
+            result.put("code",1);
+            result.put("message","getConnection success");
             ResponseHandlerHelper.success(connectionInfo, request, result);
             return;
         });
