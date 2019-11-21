@@ -49,6 +49,7 @@ public class SocketIORequestDispatcher {
         requestHandlerMap.put("control.GetCurrentLocation",new GetCurrentLocation());
         requestHandlerMap.put("control.GetConnection",new GetConnection());
         requestHandlerMap.put("control.Bind",new Bind());
+        requestHandlerMap.put("control.GetPicture", new GetPicture());
 //        requestHandlerMap.put("control.RecordVideo",new RecordVideo());
 
     }

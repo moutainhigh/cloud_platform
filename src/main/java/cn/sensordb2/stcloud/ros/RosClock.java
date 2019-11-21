@@ -17,6 +17,7 @@ public class RosClock {
             @Override
             public void handleMessage(Message message) {
                 NOW = new RosTime(message);
+                topic.unsubscribe();
             }
         });
         try {

@@ -17,12 +17,8 @@ public class RosPose {
             @Override
             public void handleMessage(Message message) {
                 POSE = new Pose(message);
+                topic.unsubscribe();
             }
         });
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }

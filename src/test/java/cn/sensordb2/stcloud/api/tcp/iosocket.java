@@ -55,30 +55,35 @@ public class iosocket {
             socket.on(Socket.EVENT_CONNECT_ERROR,
                     objects -> System.out.println("client: " + "连接失败"));
             socket.connect();
-            //login test
-            JsonObject obj = new JsonObject();
-            obj.put("version", 1);
-            obj.put("method", "user.Login").put("params",
-                    new JsonObject().put("username", "firefly")
-                            .put("hashedPassword", "111111")).put("id", 1);
-
-            socket.emit("request", obj.toString());
-            Thread.sleep(1000);
-            System.out.println("starttakeoffrequest");
-            //takeoff test
+//            //login test
+//            JsonObject obj = new JsonObject();
+//            obj.put("version", 1);
+//            obj.put("method", "user.Login").put("params",
+//                    new JsonObject().put("username", "firefly")
+//                            .put("hashedPassword", "111111")).put("id", 1);
+//
+//            socket.emit("request", obj.toString());
+//            Thread.sleep(1000);
+//            System.out.println("starttakeoffrequest");
+////            takeoff test
 //            JsonObject obj1 = new JsonObject();
 //            obj1.put("version", 1);
 //            obj1.put("method", "control.StartTakeoff").put("params",
 //                    new JsonObject().put("height", 10)).put("id", 2);
 //            System.out.println("hello");
 //            socket.emit("request", obj1.toString());
-            //landing test
+//            //landing test
+//            JsonObject obj1 = new JsonObject();
+//            obj1.put("version", 1);
+//            obj1.put("method", "control.StartLanding").put("id", 2);
+//            System.out.println("control.StartLanding");
+//            socket.emit("request", obj1.toString());
+            //getPic test
             JsonObject obj1 = new JsonObject();
             obj1.put("version", 1);
-            obj1.put("method", "control.StartLanding").put("id", 2);
+            obj1.put("method", "control.GetPicture").put("id", 2);
             System.out.println("control.StartLanding");
             socket.emit("request", obj1.toString());
-
                 Thread.sleep(1000);
 
 

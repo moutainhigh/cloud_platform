@@ -60,8 +60,8 @@ public class StartLanding extends RequestHandler {
 //                });
 //    }
 //        //使得螺旋桨停转
-//        Topic motorTopic = new Topic(ros, "/firefly/command/motor_speed", "mav_msgs/Actuators");
-//        motorTopic.unadvertise();
+//        Topic motorTopic = new Topic(ros, "/firefly/gazebo/command/motor_speed", "mav_msgs/Actuators");
+//
 //        JsonObject motorsJson = new JsonObject();
 //        motorsJson.put("header", new JsonObject().put("frame_id", ""))
 //                .put("angles", new JsonArray()).put("angular_velocities",
@@ -77,3 +77,4 @@ public class StartLanding extends RequestHandler {
         return;
     }
 }
+
