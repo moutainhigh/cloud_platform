@@ -4,6 +4,7 @@ import cn.sensordb2.stcloud.ros.ImageUtil;
 import cn.sensordb2.stcloud.ros.RosInstance;
 import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
+import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -46,6 +47,21 @@ public class simpleTest {
 //                .GeneratePicFromBase64(data, "C:\\Users\\leey\\Downloads\\aaa.jpeg");
 //        System.out.println(aBoolean);
 
+//        Ros ros = RosInstance.getInstance().getRos();
+//        ros.connect();
+//        System.out.println(ros);
+//        Topic topic = new Topic(ros, "/firefly/command/trajectory",
+//                "trajectory_msgs/MultiDOFJointTrajectory");
+//        topic.subscribe(new TopicCallback() {
+//            @Override
+//            public void handleMessage(Message message) {
+//                System.out.println(message.toJsonObject());
+//            }
+//        });
+//        Long i = 1l;
+//        while (true) {
+//            i++;
+//        }
     }
 
 }

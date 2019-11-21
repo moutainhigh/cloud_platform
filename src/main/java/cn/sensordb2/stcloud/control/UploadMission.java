@@ -10,12 +10,11 @@ import io.vertx.core.json.JsonObject;
 public class UploadMission extends RequestHandler {
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) {
-        JsonObject jsonObject = new JsonObject().put("method",request.getMethod()).put("params",request.getParams());
-        PushMessageUtil.pushMessage(connectionInfo,request,jsonObject,connectionInfo.getTo(), "RELAY_MSG", res->{
-            JsonObject result = new JsonObject();
-            result.put("code",1);
-            result.put("message","upload success");
-            ResponseHandlerHelper.success(connectionInfo, request,result);
-        });
+        request.setResponseSuccess(true);
+        JsonObject result = new JsonObject();
+        result.put("code", 1);
+        result.put("message", "askupload success");
+        ResponseHandlerHelper.success(connectionInfo, request, result);
+        return;
     }
 }

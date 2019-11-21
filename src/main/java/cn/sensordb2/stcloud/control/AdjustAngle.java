@@ -27,7 +27,6 @@ public class AdjustAngle extends RequestHandler {
         Ros ros = RosInstance.getInstance().getRos();
         Topic poseTopic = new Topic(ros, "/firefly/command/pose", "geometry_msgs/PoseStamped");
         JsonObject jsonMsg = new JsonObject();
-        RosClock.getClock();
         RosPose.getPose();
 //        '{
 //        header: {
@@ -49,7 +48,7 @@ public class AdjustAngle extends RequestHandler {
                 .Euler2Quaternion(jsonObject.getJsonObject("params").getDouble("yaw"),
                         jsonObject.getJsonObject("params").getDouble("pitch"),
                         jsonObject.getJsonObject("params").getDouble("roll"));
-        jsonMsg.put("header", new JsonObject().put("stamp", RosClock.NOW).put("frame_id", "world"));
+        jsonMsg.put("header", new JsonObject().put("frame_id", "world"));
         jsonMsg.put("pose", new JsonObject()
                 .put("position", new JsonObject().put("x", RosPose.POSE.getPosition().getX())
                         .put("y", RosPose.POSE.getPosition().getY())
@@ -68,6 +67,7 @@ public class AdjustAngle extends RequestHandler {
 //                    ResponseHandlerHelper.success(connectionInfo, request, result);
 //                });
 //    }
+        request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);
         result.put("message", "askadjust success");

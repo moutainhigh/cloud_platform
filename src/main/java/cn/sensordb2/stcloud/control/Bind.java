@@ -26,15 +26,18 @@ public class Bind extends RequestHandler {
             result.put("code",1);
             result.put("message","bind success");
             ResponseHandlerHelper.success(connectionInfo, request,result);
+            return;
         }else if (request.getParams().getString("methodName").equals("UnBind")){
             //connectionInfo.getUserID() == from    request.getParams().getString("droneName") == to
 //            ClientManager.getInstance().removeBindConnection(connectionInfo.getUserID(),request.getParams().getString("droneName"));
             connectionInfo.setTo(null);
             logger.info("unbind success");
+            request.setResponseSuccess(true);
             JsonObject result = new JsonObject();
             result.put("code",1);
             result.put("message","unbind success");
             ResponseHandlerHelper.success(connectionInfo, request,result);
+            return;
         }else{
             logger.info("something wrong");
         }

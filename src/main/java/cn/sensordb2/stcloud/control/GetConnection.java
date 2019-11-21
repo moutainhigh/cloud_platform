@@ -56,7 +56,7 @@ public class GetConnection extends RequestHandler {
 //            },
 //                "id": "#"
 //            }
-
+            request.setResponseSuccess(true);
             JsonObject result = new JsonObject().put("uavs", recordList);
             result.put("code",1);
             result.put("message","getConnection success");

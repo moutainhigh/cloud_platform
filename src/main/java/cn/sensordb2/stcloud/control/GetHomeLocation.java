@@ -34,8 +34,10 @@ public class GetHomeLocation extends RequestHandler {
                         .put("z", entries.getJsonObject("position").getDouble("z")));
             }
         });
+        request.setResponseSuccess(true);
         result.put("code",1);
         result.put("message","askgetHomeLocation success");
         ResponseHandlerHelper.success(connectionInfo, request,result);
+        return;
     }
 }
