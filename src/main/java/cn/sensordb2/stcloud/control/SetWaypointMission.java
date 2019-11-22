@@ -15,7 +15,7 @@ import java.util.List;
 //test pass!
 public class SetWaypointMission extends RequestHandler {
 
-    private Double times = 5D;
+    private Double times = 1D;
     private Double startTime = 0D;
 
     @Override
@@ -31,9 +31,9 @@ public class SetWaypointMission extends RequestHandler {
             JsonObject position = waypointList.getJsonObject(i);
             points.add(new JsonObject().put("transforms", new JsonArray()
                     .add(new JsonObject().put("translation",
-                            new JsonObject().put("x", position.getDouble("x"))
-                                    .put("y", position.getDouble("y"))
-                                    .put("z", position.getDouble("z")))))
+                            new JsonObject().put("x", position.getDouble("latitude"))
+                                    .put("y", position.getDouble("longitude"))
+                                    .put("z", position.getDouble("altitude")))))
                     .put("time_from_start",
                             new JsonObject().put("secs", startTime + i * times).put("nsecs", 0)));
         }

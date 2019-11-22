@@ -33,10 +33,9 @@ public class GetCurrentLocation extends RequestHandler {
         JsonObject result = new JsonObject();
         result.put("code", 1);
         result.put("message", "askgetcurrentLocation success");
-        result.put("result", new JsonObject()
-                .put("position", new JsonObject().put("x", RosPose.POSE.getPosition().getX())
-                        .put("y", RosPose.POSE.getPosition().getY())
-                        .put("z", RosPose.POSE.getPosition().getZ())));
+        result.put("position", new JsonObject().put("latitude", RosPose.POSE.getPosition().getX())
+                        .put("longitude", RosPose.POSE.getPosition().getY())
+                        .put("height", RosPose.POSE.getPosition().getZ()));
         ResponseHandlerHelper.success(connectionInfo, request,result);
         return;
     }

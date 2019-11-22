@@ -15,7 +15,6 @@ import io.vertx.core.json.JsonObject;
 import java.util.UUID;
 
 public class GetPicture extends RequestHandler {
-
     private String data = null;
     private String rootPath = "C:\\Users\\leey\\Downloads\\";
     private String ext = ".jpeg";

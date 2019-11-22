@@ -66,13 +66,13 @@ public class iosocket {
 //            socket.emit("request", obj.toString());
 //            Thread.sleep(1000);
 //            System.out.println("starttakeoffrequest");
-////            takeoff test
-//            JsonObject obj1 = new JsonObject();
-//            obj1.put("version", 1);
-//            obj1.put("method", "control.StartTakeoff").put("params",
-//                    new JsonObject().put("height", 10)).put("id", 2);
-//            System.out.println("hello");
-//            socket.emit("request", obj1.toString());
+//            takeoff test
+            JsonObject obj1 = new JsonObject();
+            obj1.put("version", 1);
+            obj1.put("method", "control.StartTakeoff").put("params",
+                    new JsonObject().put("height", 10)).put("id", 2);
+            System.out.println("hello");
+            socket.emit("request", obj1.toString());
 //            //landing test
 //            JsonObject obj1 = new JsonObject();
 //            obj1.put("version", 1);
@@ -80,15 +80,15 @@ public class iosocket {
 //            System.out.println("control.StartLanding");
 //            socket.emit("request", obj1.toString());
             //getPic test
-            JsonObject obj1 = new JsonObject();
-            obj1.put("version", 1);
-            obj1.put("method", "control.SetWaypointMission").put("id", 2).put("params",
-                    new JsonObject().put("waypointList", new JsonArray()
-                            .add(new JsonObject().put("x", 1).put("y", 1).put("z", 1))
-                            .add(new JsonObject().put("x", 2).put("y", 2).put("z", 2))
-                            .add(new JsonObject().put("x", 3).put("y", 3).put("z", 3))));
-            socket.emit("request", obj1.toString());
-            Thread.sleep(1000);
+//            JsonObject obj1 = new JsonObject();
+//            obj1.put("version", 1);
+//            obj1.put("method", "control.SetWaypointMission").put("id", 2).put("params",
+//                    new JsonObject().put("waypointList", new JsonArray()
+//                            .add(new JsonObject().put("x", 1).put("y", 1).put("z", 1))
+//                            .add(new JsonObject().put("x", 2).put("y", 2).put("z", 2))
+//                            .add(new JsonObject().put("x", 3).put("y", 3).put("z", 3))));
+//            socket.emit("request", obj1.toString());
+//            Thread.sleep(1000);
 
 
         } catch (Exception ex) {

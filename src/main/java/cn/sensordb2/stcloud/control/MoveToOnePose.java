@@ -44,9 +44,9 @@ public class MoveToOnePose extends RequestHandler {
 //    }'
             jsonMsg.put("header", new JsonObject().put("frame_id", "world"));
             jsonMsg.put("pose", new JsonObject()
-                    .put("position", new JsonObject().put("x", jsonObject.getJsonObject("params").getDouble("x"))
-                            .put("y", jsonObject.getJsonObject("params").getDouble("y"))
-                            .put("z", jsonObject.getJsonObject("params").getDouble("z")))
+                    .put("position", new JsonObject().put("x", jsonObject.getJsonObject("params").getDouble("latitude"))
+                            .put("y", jsonObject.getJsonObject("params").getDouble("longitude"))
+                            .put("z", jsonObject.getJsonObject("params").getDouble("height")))
                     .put("orientation",
                             new JsonObject().put("x", RosPose.POSE.getOrientation().getX())
                                     .put("y", RosPose.POSE.getOrientation().getY())

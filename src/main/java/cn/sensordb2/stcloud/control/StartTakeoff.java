@@ -1,6 +1,7 @@
 package cn.sensordb2.stcloud.control;
 
 import cn.sensordb2.stcloud.core.Database;
+import cn.sensordb2.stcloud.ros.Pose;
 import cn.sensordb2.stcloud.ros.Position;
 import cn.sensordb2.stcloud.ros.Quaternion;
 import cn.sensordb2.stcloud.ros.QuaternionUtil;
@@ -52,6 +53,8 @@ public class StartTakeoff extends RequestHandler {
 //        }
 //    }'
         MongoClient mongoClient = Database.getInstance().getMongoClient();
+        Pose pose = RosPose.POSE;
+        Position position = pose.getPosition();
         mongoClient.save("homeLand", new JsonObject().put("name", "firefly")
                 .put("position", new JsonObject().put("x", RosPose.POSE.getPosition().getX())
                         .put("y", RosPose.POSE.getPosition().getY())
