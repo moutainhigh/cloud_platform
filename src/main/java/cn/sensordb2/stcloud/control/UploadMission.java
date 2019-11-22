@@ -6,7 +6,7 @@ import cn.sensordb2.stcloud.server.common.RequestHandler;
 import cn.sensordb2.stcloud.server.message.Request;
 import cn.sensordb2.stcloud.util.PushMessageUtil;
 import io.vertx.core.json.JsonObject;
-
+//没啥用
 public class UploadMission extends RequestHandler {
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) {

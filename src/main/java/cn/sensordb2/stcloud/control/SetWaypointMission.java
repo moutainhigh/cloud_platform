@@ -12,7 +12,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import java.util.List;
-
+//test pass!
 public class SetWaypointMission extends RequestHandler {
 
     private Double times = 5D;
@@ -22,7 +22,7 @@ public class SetWaypointMission extends RequestHandler {
     public void handle(ConnectionInfo connectionInfo, Request request) {
         JsonObject jsonObject = new JsonObject().put("method", request.getMethod())
                 .put("params", request.getParams());
-        JsonArray waypointList = jsonObject.getJsonArray("waypointList");
+        JsonArray waypointList = jsonObject.getJsonObject("params").getJsonArray("waypointList");
         JsonObject waypoint = new JsonObject();
         waypoint.put("header", new JsonObject().put("frame_id", "world"))
                 .put("joint_names", new JsonArray().add("base_link"));

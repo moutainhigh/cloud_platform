@@ -5,6 +5,7 @@ import io.socket.client.Socket;
 
 import io.socket.emitter.Emitter;
 import io.socket.emitter.Emitter.Listener;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import java.util.Arrays;
 
@@ -45,7 +46,7 @@ public class iosocket {
 
                 @Override
                 public void call(Object... objects) {
-                    System.out.println(new String((byte[])objects[0]));
+                    System.out.println(new String((byte[]) objects[0]));
                 }
             });
 
@@ -81,11 +82,13 @@ public class iosocket {
             //getPic test
             JsonObject obj1 = new JsonObject();
             obj1.put("version", 1);
-            obj1.put("method", "control.GetPicture").put("id", 2);
-            System.out.println("control.StartLanding");
+            obj1.put("method", "control.SetWaypointMission").put("id", 2).put("params",
+                    new JsonObject().put("waypointList", new JsonArray()
+                            .add(new JsonObject().put("x", 1).put("y", 1).put("z", 1))
+                            .add(new JsonObject().put("x", 2).put("y", 2).put("z", 2))
+                            .add(new JsonObject().put("x", 3).put("y", 3).put("z", 3))));
             socket.emit("request", obj1.toString());
-                Thread.sleep(1000);
-
+            Thread.sleep(1000);
 
 
         } catch (Exception ex) {
