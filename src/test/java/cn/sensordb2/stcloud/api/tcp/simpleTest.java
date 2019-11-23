@@ -62,6 +62,21 @@ public class simpleTest {
 //        while (true) {
 //            i++;
 //        }
+
+        //雷达消息测试
+        Ros ros = RosInstance.getInstance().getRos();
+        ros.connect();
+      Topic topic = new Topic(ros, "/scan",
+                "sensor_msgs/LaserScan");
+        topic.subscribe(new TopicCallback() {
+            @Override
+            public void handleMessage(Message message) {
+                System.out.println(message.toJsonObject());
+            }
+        });
+        while (true) {
+            Thread.sleep(100);
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package cn.sensordb2.stcloud.control;
 
+import cn.sensordb2.stcloud.ros.Pose;
+import cn.sensordb2.stcloud.ros.Position;
 import cn.sensordb2.stcloud.ros.Quaternion;
 import cn.sensordb2.stcloud.ros.QuaternionUtil;
 import cn.sensordb2.stcloud.ros.RosClock;
@@ -23,7 +25,7 @@ public class MoveToOnePose extends RequestHandler {
             JsonObject jsonObject = new JsonObject().put("method", request.getMethod())
                     .put("params", request.getParams());
             Ros ros = RosInstance.getInstance().getRos();
-            Topic poseTopic = new Topic(ros, "/firefly/command/pose", "geometry_msgs/PoseStamped");
+            Topic poseTopic = new Topic(ros, "/"+connectionInfo.getTo()+"/command/pose", "geometry_msgs/PoseStamped");
             JsonObject jsonMsg = new JsonObject();
 
 //        '{
@@ -42,16 +44,21 @@ public class MoveToOnePose extends RequestHandler {
 //            }
 //        }
 //    }'
+            RosPose rosPose = new RosPose();
+            rosPose.uavPose(connectionInfo.getTo());
+            Pose pose = rosPose.getPose();
+            Position position = pose.getPosition();
+            Quaternion orientation = pose.getOrientation();
             jsonMsg.put("header", new JsonObject().put("frame_id", "world"));
             jsonMsg.put("pose", new JsonObject()
                     .put("position", new JsonObject().put("x", jsonObject.getJsonObject("params").getDouble("latitude"))
                             .put("y", jsonObject.getJsonObject("params").getDouble("longitude"))
                             .put("z", jsonObject.getJsonObject("params").getDouble("height")))
                     .put("orientation",
-                            new JsonObject().put("x", RosPose.POSE.getOrientation().getX())
-                                    .put("y", RosPose.POSE.getOrientation().getY())
-                                    .put("z", RosPose.POSE.getOrientation().getZ())
-                                    .put("w", RosPose.POSE.getOrientation().getW())));
+                            new JsonObject().put("x", orientation.getX())
+                                    .put("y", orientation.getY())
+                                    .put("z", orientation.getZ())
+                                    .put("w", orientation.getW())));
             poseTopic.publish(new Message(jsonMsg.toString()));
 //        PushMessageUtil.pushMessage(connectionInfo, request, jsonObject, connectionInfo.getTo(),
 //                "RELAY_MSG", res -> {

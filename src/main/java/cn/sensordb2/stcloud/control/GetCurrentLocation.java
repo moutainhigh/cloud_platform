@@ -1,5 +1,8 @@
 package cn.sensordb2.stcloud.control;
 
+import cn.sensordb2.stcloud.ros.Pose;
+import cn.sensordb2.stcloud.ros.Position;
+import cn.sensordb2.stcloud.ros.Quaternion;
 import cn.sensordb2.stcloud.ros.RosClock;
 import cn.sensordb2.stcloud.ros.RosInstance;
 import cn.sensordb2.stcloud.ros.RosPose;
@@ -28,14 +31,18 @@ public class GetCurrentLocation extends RequestHandler {
 //        });
         JsonObject jsonObject = new JsonObject().put("method", request.getMethod())
                 .put("params", request.getParams());
-        RosPose.getPose();
+        RosPose rosPose = new RosPose();
+        rosPose.uavPose(connectionInfo.getTo());
+        Pose pose = rosPose.getPose();
+        Position position = pose.getPosition();
+        Quaternion orientation = pose.getOrientation();
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);
         result.put("message", "askgetcurrentLocation success");
-        result.put("position", new JsonObject().put("latitude", RosPose.POSE.getPosition().getX())
-                        .put("longitude", RosPose.POSE.getPosition().getY())
-                        .put("height", RosPose.POSE.getPosition().getZ()));
+        result.put("position", new JsonObject().put("latitude", position.getX())
+                        .put("longitude", position.getY())
+                        .put("height", position.getZ()));
         ResponseHandlerHelper.success(connectionInfo, request,result);
         return;
     }

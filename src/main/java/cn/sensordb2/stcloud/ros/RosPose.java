@@ -6,29 +6,29 @@ import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
 
 public class RosPose {
-    private String pose = null;
+    private Pose pose = null;
 
-    public void setPose(String pose) {
-        this.pose = pose;
-    }
-
-    public String getPose() {
+    public Pose getPose() {
         return pose;
     }
 
-    public  void uavPose() {
+    public void setPose(Pose pose) {
+        this.pose = pose;
+    }
+
+    public  void uavPose(String uavName) {
 
         Ros ros = RosInstance.getInstance().getRos();
-        Topic topic = new Topic(ros, "/firefly/ground_truth/pose", "geometry_msgs/Pose");
+        Topic topic = new Topic(ros, "/"+uavName+"/ground_truth/pose", "geometry_msgs/Pose");
         topic.subscribe(new TopicCallback() {
             @Override
             public void handleMessage(Message message) {
-                pose = message.toJsonObject().toString();
+                pose = new Pose(message);
                 topic.unsubscribe();
             }
         });
         try {
-            Thread.sleep(10);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

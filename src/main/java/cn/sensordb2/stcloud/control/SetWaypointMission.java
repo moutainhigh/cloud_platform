@@ -39,7 +39,7 @@ public class SetWaypointMission extends RequestHandler {
         }
         waypoint.put("points", points);
         Ros ros = RosInstance.getInstance().getRos();
-        Topic topic = new Topic(ros, "/firefly/command/trajectory",
+        Topic topic = new Topic(ros, "/"+connectionInfo.getTo()+"/command/trajectory",
                 "trajectory_msgs/MultiDOFJointTrajectory");
         topic.publish(new Message(waypoint.toString()));
         request.setResponseSuccess(true);

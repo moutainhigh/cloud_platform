@@ -31,11 +31,11 @@ public class StartTakeoff extends RequestHandler {
         if (height == null) {
             height = 10d;
         }
+//        String topicSuffix = "/command/pose";
         Ros ros = RosInstance.getInstance().getRos();
-        Topic poseTopic = new Topic(ros, "/firefly/command/pose", "geometry_msgs/PoseStamped");
-        JsonObject jsonMsg = new JsonObject();
 
-        RosPose.getPose();
+        Topic poseTopic = new Topic(ros, "/"+connectionInfo.getTo()+"/command/pose", "geometry_msgs/PoseStamped");
+        JsonObject jsonMsg = new JsonObject();
 //        '{
 //        header: {
 //            stamp: now,
@@ -53,22 +53,25 @@ public class StartTakeoff extends RequestHandler {
 //        }
 //    }'
         MongoClient mongoClient = Database.getInstance().getMongoClient();
-        Pose pose = RosPose.POSE;
+        RosPose rosPose = new RosPose();
+        rosPose.uavPose(connectionInfo.getTo());
+        Pose pose = rosPose.getPose();
         Position position = pose.getPosition();
+        Quaternion orientation = pose.getOrientation();
         mongoClient.save("homeLand", new JsonObject().put("name", "firefly")
-                .put("position", new JsonObject().put("x", RosPose.POSE.getPosition().getX())
-                        .put("y", RosPose.POSE.getPosition().getY())
-                        .put("z", RosPose.POSE.getPosition().getZ())), res -> {
+                .put("position", new JsonObject().put("x", position.getX())
+                        .put("y", position.getY())
+                        .put("z", position.getZ())), res -> {
         });
         jsonMsg.put("header", new JsonObject().put("frame_id", "world"));
         jsonMsg.put("pose", new JsonObject()
-                .put("position", new JsonObject().put("x", RosPose.POSE.getPosition().getX())
-                        .put("y", RosPose.POSE.getPosition().getY())
+                .put("position", new JsonObject().put("x", position.getX())
+                        .put("y", position.getY())
                         .put("z", height))
-                .put("orientation", new JsonObject().put("x", RosPose.POSE.getOrientation().getX())
-                        .put("y", RosPose.POSE.getOrientation().getY())
-                        .put("z", RosPose.POSE.getOrientation().getZ())
-                        .put("w", RosPose.POSE.getOrientation().getW())));
+                .put("orientation", new JsonObject().put("x", orientation.getX())
+                        .put("y", orientation.getY())
+                        .put("z", orientation.getZ())
+                        .put("w", orientation.getW())));
         Message poseMsg = new Message(jsonMsg.toString());
         poseTopic.publish(poseMsg);
 //        PushMessageUtil.pushMessage(connectionInfo, request, jsonObject, connectionInfo.getTo(),

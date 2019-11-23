@@ -26,7 +26,7 @@ public class GetHomeLocation extends RequestHandler {
 ////        });
         JsonObject result = new JsonObject();
         MongoClient mongoClient = Database.getInstance().getMongoClient();
-        mongoClient.find("homeLand", new JsonObject().put("name", "firefly"), res -> {
+        mongoClient.find("homeLand", new JsonObject().put("name", connectionInfo.getTo()), res -> {
             for (JsonObject entries : res.result()) {
                 result.put("position", new JsonObject()
                         .put("x", entries.getJsonObject("position").getDouble("x"))

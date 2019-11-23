@@ -56,16 +56,27 @@ public class iosocket {
             socket.on(Socket.EVENT_CONNECT_ERROR,
                     objects -> System.out.println("client: " + "连接失败"));
             socket.connect();
-//            //login test
-//            JsonObject obj = new JsonObject();
-//            obj.put("version", 1);
-//            obj.put("method", "user.Login").put("params",
-//                    new JsonObject().put("username", "firefly")
-//                            .put("hashedPassword", "111111")).put("id", 1);
-//
-//            socket.emit("request", obj.toString());
-//            Thread.sleep(1000);
-//            System.out.println("starttakeoffrequest");
+            //login test
+            JsonObject login = new JsonObject();
+            login.put("version", 1);
+            login.put("method", "user.Login").put("params",
+                    new JsonObject().put("username", "firefly2_user")
+                            .put("hashedPassword", "111111")).put("id", 1);
+
+            socket.emit("request", login.toString());
+            Thread.sleep(1000);
+            System.out.println("starttakeoffrequest");
+            //bind test
+            //"droneName":"#"
+            //"methodName":"#"
+            JsonObject bind = new JsonObject();
+            bind.put("version", 1);
+            bind.put("method", "control.Bind").put("params",
+                    new JsonObject().put("droneName", "firefly2")
+                            .put("methodName", "Bind")).put("id", 1);
+            socket.emit("request", bind.toString());
+            Thread.sleep(1000);
+            System.out.println("starttakeoffrequest");
 //            takeoff test
             JsonObject obj1 = new JsonObject();
             obj1.put("version", 1);

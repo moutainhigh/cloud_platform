@@ -24,6 +24,7 @@ public class Login extends RequestHandler {
         MongoClient mongoClient = Database.getInstance().getMongoClient();
         JsonObject jsonObject = request.getParams();
         JsonObject query = new JsonObject().put("username", jsonObject.getValue("username"));
+        System.out.println(query);
         mongoClient.find("user", query, queryResult -> {
             if (queryResult.failed()) {
                 logger.error("服务器内部异常", connectionInfo);

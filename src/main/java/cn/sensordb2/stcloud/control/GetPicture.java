@@ -22,7 +22,7 @@ public class GetPicture extends RequestHandler {
     public void handle(ConnectionInfo connectionInfo, Request request) {
 
         Ros ros = RosInstance.getInstance().getRos();
-        Topic cameraTopic = new Topic(ros, "/firefly/vi_sensor/camera_depth/camera/image_raw/compressed", "sensor_msgs/CompressedImage");
+        Topic cameraTopic = new Topic(ros, "/"+connectionInfo.getTo()+"/vi_sensor/camera_depth/camera/image_raw/compressed", "sensor_msgs/CompressedImage");
         cameraTopic.subscribe(new TopicCallback() {
             @Override
             public void handleMessage(Message message) {

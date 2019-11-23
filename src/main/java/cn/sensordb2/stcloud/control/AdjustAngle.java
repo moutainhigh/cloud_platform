@@ -1,5 +1,7 @@
 package cn.sensordb2.stcloud.control;
 
+import cn.sensordb2.stcloud.ros.Pose;
+import cn.sensordb2.stcloud.ros.Position;
 import cn.sensordb2.stcloud.ros.Quaternion;
 import cn.sensordb2.stcloud.ros.QuaternionUtil;
 import cn.sensordb2.stcloud.ros.RosClock;
@@ -25,9 +27,8 @@ public class AdjustAngle extends RequestHandler {
         JsonObject jsonObject = new JsonObject().put("method", request.getMethod())
                 .put("params", request.getParams());
         Ros ros = RosInstance.getInstance().getRos();
-        Topic poseTopic = new Topic(ros, "/firefly/command/pose", "geometry_msgs/PoseStamped");
+        Topic poseTopic = new Topic(ros, "/"+connectionInfo.getTo()+"/command/pose", "geometry_msgs/PoseStamped");
         JsonObject jsonMsg = new JsonObject();
-        RosPose.getPose();
 //        '{
 //        header: {
 //            stamp: now,
@@ -44,15 +45,19 @@ public class AdjustAngle extends RequestHandler {
 //            }
 //        }
 //    }'
+        RosPose rosPose = new RosPose();
+        rosPose.uavPose(connectionInfo.getTo());
+        Pose pose = rosPose.getPose();
+        Position position = pose.getPosition();
         Quaternion quaternion = QuaternionUtil
                 .Euler2Quaternion(jsonObject.getJsonObject("params").getDouble("yaw"),
                         jsonObject.getJsonObject("params").getDouble("pitch"),
                         jsonObject.getJsonObject("params").getDouble("roll"));
         jsonMsg.put("header", new JsonObject().put("frame_id", "world"));
         jsonMsg.put("pose", new JsonObject()
-                .put("position", new JsonObject().put("x", RosPose.POSE.getPosition().getX())
-                        .put("y", RosPose.POSE.getPosition().getY())
-                        .put("z", RosPose.POSE.getPosition().getZ()))
+                .put("position", new JsonObject().put("x", position.getX())
+                        .put("y", position.getY())
+                        .put("z", position.getZ()))
                 .put("orientation", new JsonObject().put("x", quaternion.getX())
                         .put("y", quaternion.getY())
                         .put("z", quaternion.getZ())
