@@ -11,13 +11,14 @@ import cn.sensordb2.stcloud.server.ConnectionInfo;
 import cn.sensordb2.stcloud.server.ResponseHandlerHelper;
 import cn.sensordb2.stcloud.server.common.RequestHandler;
 import cn.sensordb2.stcloud.server.message.Request;
+import cn.sensordb2.stcloud.util.HYLogger;
 import cn.sensordb2.stcloud.util.PushMessageUtil;
 import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import io.vertx.core.json.JsonObject;
 
 public class GetCurrentLocation extends RequestHandler {
-
+    private static HYLogger logger = HYLogger.getLogger(GetCurrentLocation.class);
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) {
 //        JsonObject jsonObject = new JsonObject().put("method",request.getMethod()).put("from",
@@ -36,6 +37,7 @@ public class GetCurrentLocation extends RequestHandler {
         Pose pose = rosPose.getPose();
         Position position = pose.getPosition();
         Quaternion orientation = pose.getOrientation();
+//        logger.exception("position"+position.getX()+"**"+position.getY()+"**"+position.getZ()+"**"+connectionInfo.getTo());
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);

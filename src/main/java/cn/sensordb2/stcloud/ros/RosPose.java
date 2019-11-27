@@ -24,11 +24,12 @@ public class RosPose {
             @Override
             public void handleMessage(Message message) {
                 pose = new Pose(message);
-                topic.unsubscribe();
             }
         });
         try {
-            Thread.sleep(100);
+            while (pose == null) {
+                Thread.sleep(100);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

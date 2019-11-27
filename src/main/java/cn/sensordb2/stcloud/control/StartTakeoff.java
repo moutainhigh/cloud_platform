@@ -58,7 +58,7 @@ public class StartTakeoff extends RequestHandler {
         Pose pose = rosPose.getPose();
         Position position = pose.getPosition();
         Quaternion orientation = pose.getOrientation();
-        mongoClient.save("homeLand", new JsonObject().put("name", "firefly")
+        mongoClient.save("homeLand", new JsonObject().put("name", connectionInfo.getTo())
                 .put("position", new JsonObject().put("x", position.getX())
                         .put("y", position.getY())
                         .put("z", position.getZ())), res -> {
