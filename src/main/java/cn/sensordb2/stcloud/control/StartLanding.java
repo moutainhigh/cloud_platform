@@ -52,7 +52,7 @@ public class StartLanding extends RequestHandler {
         jsonMsg.put("pose", new JsonObject()
                 .put("position", new JsonObject().put("x", position.getX())
                         .put("y", position.getY())
-                        .put("z", 0D))
+                        .put("z", -10D))
                 .put("orientation", new JsonObject().put("x", orientation.getX())
                         .put("y", orientation.getY())
                         .put("z", orientation.getZ())

@@ -51,6 +51,8 @@ public class SocketIORequestDispatcher {
         requestHandlerMap.put("control.GetConnection",new GetConnection());
         requestHandlerMap.put("control.Bind",new Bind());
         requestHandlerMap.put("control.GetPicture", new GetPicture());
+        requestHandlerMap.put("control.RandomCrashOne", new RandomCrashOne());
+        requestHandlerMap.put("control.RescueUav", new RescueUav());
 //        requestHandlerMap.put("control.RecordVideo",new RecordVideo());
 
     }
