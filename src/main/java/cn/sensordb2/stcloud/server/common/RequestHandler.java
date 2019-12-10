@@ -22,6 +22,7 @@ public abstract class RequestHandler {
 		this.name = name;
 	}
 	
-	public abstract void handle(ConnectionInfo connectionInfo, Request request);
+	public abstract void handle(ConnectionInfo connectionInfo, Request request)
+            throws InterruptedException;
 
 }

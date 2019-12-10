@@ -17,7 +17,7 @@ public class Pose {
 //                .doubleValue());
 //        this.setNsecs(message.toJsonObject().getJsonObject("clock").getJsonNumber("nsecs")
 //                .doubleValue());
-//    }
+//
     public Pose(Message message) {
         JsonObject position = message.toJsonObject().getJsonObject("position");
         JsonObject orientation = message.toJsonObject().getJsonObject("orientation");

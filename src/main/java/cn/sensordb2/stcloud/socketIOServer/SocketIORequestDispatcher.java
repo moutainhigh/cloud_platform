@@ -2,6 +2,8 @@ package cn.sensordb2.stcloud.socketIOServer;
 
 import cn.sensordb2.stcloud.control.*;
 import cn.sensordb2.stcloud.data.GetData;
+import cn.sensordb2.stcloud.rule.faultResponse.GetPose;
+import cn.sensordb2.stcloud.rule.faultResponse.controlUav;
 import cn.sensordb2.stcloud.server.ConnectionInfo;
 import cn.sensordb2.stcloud.server.ResponseHandlerHelper;
 import cn.sensordb2.stcloud.server.common.RequesResponseLoggerTool;
@@ -53,8 +55,10 @@ public class SocketIORequestDispatcher {
         requestHandlerMap.put("control.GetPicture", new GetPicture());
         requestHandlerMap.put("control.RandomCrashOne", new RandomCrashOne());
         requestHandlerMap.put("control.RescueUav", new RescueUav());
-//        requestHandlerMap.put("control.RecordVideo",new RecordVideo());
+        requestHandlerMap.put("rule.faultResponse.getPose", new GetPose());
+        requestHandlerMap.put("rule.faultResponse.controlUav", new controlUav());
 
+//      requestHandlerMap.put("control.RecordVideo",new RecordVideo());
     }
 
     public static SocketIORequestDispatcher getInstance() {
