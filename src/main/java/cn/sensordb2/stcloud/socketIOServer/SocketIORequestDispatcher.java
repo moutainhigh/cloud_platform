@@ -4,6 +4,10 @@ import cn.sensordb2.stcloud.control.*;
 import cn.sensordb2.stcloud.data.GetData;
 import cn.sensordb2.stcloud.rule.faultResponse.GetPose;
 import cn.sensordb2.stcloud.rule.faultResponse.controlUav;
+import cn.sensordb2.stcloud.rule.qos.RecoveryQoS;
+import cn.sensordb2.stcloud.rule.qos.getPose;
+import cn.sensordb2.stcloud.rule.swarmCreate.attackEnemy;
+import cn.sensordb2.stcloud.rule.swarmCreate.getEmPose;
 import cn.sensordb2.stcloud.server.ConnectionInfo;
 import cn.sensordb2.stcloud.server.ResponseHandlerHelper;
 import cn.sensordb2.stcloud.server.common.RequesResponseLoggerTool;
@@ -57,6 +61,10 @@ public class SocketIORequestDispatcher {
         requestHandlerMap.put("control.RescueUav", new RescueUav());
         requestHandlerMap.put("rule.faultResponse.getPose", new GetPose());
         requestHandlerMap.put("rule.faultResponse.controlUav", new controlUav());
+        requestHandlerMap.put("rule.qos.getPose", new getPose());
+        requestHandlerMap.put("rule.qos.RecoveryQos", new RecoveryQoS());
+        requestHandlerMap.put("rule.swarm.getPose", new getEmPose());
+        requestHandlerMap.put("rule.swarm.attack", new attackEnemy());
 
 //      requestHandlerMap.put("control.RecordVideo",new RecordVideo());
     }

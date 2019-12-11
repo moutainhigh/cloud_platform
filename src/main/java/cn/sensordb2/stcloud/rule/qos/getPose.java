@@ -1,4 +1,4 @@
-package cn.sensordb2.stcloud.rule.faultResponse;
+package cn.sensordb2.stcloud.rule.qos;
 
 import cn.sensordb2.stcloud.ros.RosInstance;
 import cn.sensordb2.stcloud.server.ConnectionInfo;
@@ -11,29 +11,12 @@ import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
 import io.vertx.core.json.JsonObject;
 
-public class GetPose extends RequestHandler {
+public class getPose extends RequestHandler {
 
     @Override
-    public void handle(ConnectionInfo connectionInfo, Request request) {
+    public void handle(ConnectionInfo connectionInfo, Request request) throws InterruptedException {
         Ros ros = RosInstance.getInstance().getRos();
-        int UavNums = 4;
-        String uavName = "firefly";
         JsonObject uavs = new JsonObject();
-
-//        for (int i = 0; i < UavNums; i++) {
-//            int count = i;
-//            Topic topic = new Topic(ros, "/" + uavName + i + "/ground_truth/pose",
-//                    "geometry_msgs/Pose");
-//            topic.subscribe(new TopicCallback() {
-//                @Override
-//                public void handleMessage(Message message) {
-//                    String position = message.toJsonObject().getJsonObject("position")
-//                            .toString();
-//                    uavs.put(uavName + count, new JsonObject(position));
-//                    topic.unsubscribe();
-//                }
-//            });
-//        }
         Topic topic1 = new Topic(ros, "/firefly1/ground_truth/pose",
                 "geometry_msgs/Pose");
         topic1.subscribe(new TopicCallback() {
@@ -93,7 +76,7 @@ public class GetPose extends RequestHandler {
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);
-        result.put("message", "askAllPose success");
+        result.put("message", "askAllPoseInQos Success");
         result.put("uavs", uavs);
         ResponseHandlerHelper.success(connectionInfo, request, result);
         return;
