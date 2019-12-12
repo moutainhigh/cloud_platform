@@ -14,7 +14,7 @@ import io.vertx.core.json.JsonObject;
 public class getEmPose extends RequestHandler {
 
     @Override
-    public void handle(ConnectionInfo connectionInfo, Request request) throws InterruptedException {
+    public void handle(ConnectionInfo connectionInfo, Request request)  {
         Ros ros = RosInstance.getInstance().getRos();
         JsonObject params = request.getParams();
         String enemyUav = "firefly7";
@@ -30,6 +30,13 @@ public class getEmPose extends RequestHandler {
                 topic1.unsubscribe();
             }
         });
+        while (ePose.size() != 1) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);
