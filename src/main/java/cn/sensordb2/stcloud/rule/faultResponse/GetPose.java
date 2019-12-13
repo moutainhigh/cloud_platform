@@ -1,5 +1,6 @@
 package cn.sensordb2.stcloud.rule.faultResponse;
 
+import cn.sensordb2.stcloud.core.Database;
 import cn.sensordb2.stcloud.ros.RosInstance;
 import cn.sensordb2.stcloud.server.ConnectionInfo;
 import cn.sensordb2.stcloud.server.ResponseHandlerHelper;
@@ -9,7 +10,10 @@ import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.mongo.MongoClient;
+import java.util.List;
 
 public class GetPose extends RequestHandler {
 
@@ -90,6 +94,18 @@ public class GetPose extends RequestHandler {
                 e.printStackTrace();
             }
         }
+//        JsonObject availList = new JsonObject();
+//        MongoClient mongoClient = Database.getInstance().getMongoClient();
+//        mongoClient.find("AvailableUavs", new JsonObject().put("flag", "0"),res->{
+//            if (res.succeeded()) {
+//                List<JsonObject> result = res.result();
+//                for (int i = 0; i <result.size() ; i++) {
+//                    availList.put(Integer.toString(i),
+//                            new JsonObject().put("no", result.get(i).getString("uav"))
+//                                    .put("position"));
+//                }
+//            }
+//        } );
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);

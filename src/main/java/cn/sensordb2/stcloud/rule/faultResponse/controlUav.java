@@ -29,6 +29,7 @@ public class controlUav extends RequestHandler {
                         .put("z", position.getDouble("z"))));
         System.err.println(jsonMsg);
         poseTopic.publish(new Message(jsonMsg.toString()));
+        connectionInfo.setTo("firefly" + uav);
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);

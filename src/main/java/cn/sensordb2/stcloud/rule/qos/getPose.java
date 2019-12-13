@@ -16,15 +16,18 @@ public class getPose extends RequestHandler {
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) throws InterruptedException {
         Ros ros = RosInstance.getInstance().getRos();
+        System.err.println("2222222222222222222222222222222");
         JsonObject uavs = new JsonObject();
+        uavs.put("0", new JsonObject().put("x", 0).put("y", 0).put("z", 5));
         Topic topic1 = new Topic(ros, "/firefly1/ground_truth/pose",
                 "geometry_msgs/Pose");
+
         topic1.subscribe(new TopicCallback() {
             @Override
             public void handleMessage(Message message) {
                 String position = message.toJsonObject().getJsonObject("position")
                         .toString();
-                uavs.put("firefly1", new JsonObject(position));
+                uavs.put("1", new JsonObject(position));
                 topic1.unsubscribe();
             }
         });
@@ -35,7 +38,7 @@ public class getPose extends RequestHandler {
             public void handleMessage(Message message) {
                 String position = message.toJsonObject().getJsonObject("position")
                         .toString();
-                uavs.put("firefly2", new JsonObject(position));
+                uavs.put("2", new JsonObject(position));
                 topic2.unsubscribe();
             }
         });
@@ -46,7 +49,7 @@ public class getPose extends RequestHandler {
             public void handleMessage(Message message) {
                 String position = message.toJsonObject().getJsonObject("position")
                         .toString();
-                uavs.put("firefly3", new JsonObject(position));
+                uavs.put("3", new JsonObject(position));
                 topic3.unsubscribe();
             }
         });
@@ -57,13 +60,13 @@ public class getPose extends RequestHandler {
             public void handleMessage(Message message) {
                 String position = message.toJsonObject().getJsonObject("position")
                         .toString();
-                uavs.put("firefly4", new JsonObject(position));
+                uavs.put("4", new JsonObject(position));
                 topic4.unsubscribe();
             }
         });
         boolean flag = true;
         while (flag) {
-            if (uavs.size() == 4) {
+            if (uavs.size() == 5) {
                 flag = false;
             }
 //            System.out.println(flag);
