@@ -16,7 +16,7 @@ public class getPose extends RequestHandler {
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) throws InterruptedException {
         Ros ros = RosInstance.getInstance().getRos();
-        System.err.println("2222222222222222222222222222222");
+//        System.err.println("2222222222222222222222222222222");
         JsonObject uavs = new JsonObject();
         uavs.put("0", new JsonObject().put("x", 0).put("y", 0).put("z", 5));
         Topic topic1 = new Topic(ros, "/firefly1/ground_truth/pose",

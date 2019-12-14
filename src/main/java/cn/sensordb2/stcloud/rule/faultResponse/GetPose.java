@@ -45,7 +45,7 @@ public class GetPose extends RequestHandler {
             public void handleMessage(Message message) {
                 String position = message.toJsonObject().getJsonObject("position")
                         .toString();
-                uavs.put("firefly1", new JsonObject(position));
+                uavs.put("1", new JsonObject(position));
                 topic1.unsubscribe();
             }
         });
@@ -56,7 +56,7 @@ public class GetPose extends RequestHandler {
             public void handleMessage(Message message) {
                 String position = message.toJsonObject().getJsonObject("position")
                         .toString();
-                uavs.put("firefly2", new JsonObject(position));
+                uavs.put("2", new JsonObject(position));
                 topic2.unsubscribe();
             }
         });
@@ -67,7 +67,7 @@ public class GetPose extends RequestHandler {
             public void handleMessage(Message message) {
                 String position = message.toJsonObject().getJsonObject("position")
                         .toString();
-                uavs.put("firefly3", new JsonObject(position));
+                uavs.put("3", new JsonObject(position));
                 topic3.unsubscribe();
             }
         });
@@ -78,13 +78,47 @@ public class GetPose extends RequestHandler {
             public void handleMessage(Message message) {
                 String position = message.toJsonObject().getJsonObject("position")
                         .toString();
-                uavs.put("firefly4", new JsonObject(position));
+                uavs.put("4", new JsonObject(position));
                 topic4.unsubscribe();
+            }
+        });
+        Topic topic5 = new Topic(ros, "/firefly5/ground_truth/pose",
+                "geometry_msgs/Pose");
+        topic5.subscribe(new TopicCallback() {
+            @Override
+            public void handleMessage(Message message) {
+                String position = message.toJsonObject().getJsonObject("position")
+                        .toString();
+                uavs.put("5", new JsonObject(position));
+                topic5.unsubscribe();
+            }
+        });
+        Topic topic6 = new Topic(ros, "/firefly6/ground_truth/pose",
+                "geometry_msgs/Pose");
+        topic6.subscribe(new TopicCallback() {
+            @Override
+            public void handleMessage(Message message) {
+                String position = message.toJsonObject().getJsonObject("position")
+                        .toString();
+                uavs.put("6", new JsonObject(position));
+                topic6.unsubscribe();
+            }
+        });
+
+        Topic topic7 = new Topic(ros, "/firefly7/ground_truth/pose",
+                "geometry_msgs/Pose");
+        topic7.subscribe(new TopicCallback() {
+            @Override
+            public void handleMessage(Message message) {
+                String position = message.toJsonObject().getJsonObject("position")
+                        .toString();
+                uavs.put("7", new JsonObject(position));
+                topic7.unsubscribe();
             }
         });
         boolean flag = true;
         while (flag) {
-            if (uavs.size() == 4) {
+            if (uavs.size() == 7) {
                 flag = false;
             }
 //            System.out.println(flag);

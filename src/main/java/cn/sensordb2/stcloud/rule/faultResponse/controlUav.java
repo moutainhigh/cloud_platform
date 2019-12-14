@@ -1,6 +1,7 @@
 package cn.sensordb2.stcloud.rule.faultResponse;
 
 import cn.sensordb2.stcloud.ros.RosInstance;
+import cn.sensordb2.stcloud.server.ClientManager;
 import cn.sensordb2.stcloud.server.ConnectionInfo;
 import cn.sensordb2.stcloud.server.ResponseHandlerHelper;
 import cn.sensordb2.stcloud.server.common.RequestHandler;
@@ -15,7 +16,7 @@ public class controlUav extends RequestHandler {
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) throws InterruptedException {
         JsonObject params = request.getParams();
-        String uav = params.getString("uavNum");
+        int uav = params.getInteger("uavNum");
 //        JsonObject position = new JsonObject(params.getString("position"));
         JsonObject position = params.getJsonObject("position");
         Ros ros = RosInstance.getInstance().getRos();
@@ -29,7 +30,9 @@ public class controlUav extends RequestHandler {
                         .put("z", position.getDouble("z"))));
         System.err.println(jsonMsg);
         poseTopic.publish(new Message(jsonMsg.toString()));
-        connectionInfo.setTo("firefly" + uav);
+        ConnectionInfo connectionInfo1 = ClientManager.getInstance()
+                .getConnectionInfo("firefly" + params.getString("source" + "_user"));
+        connectionInfo1.setTo("firefly"+params.getString("source"));
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);
