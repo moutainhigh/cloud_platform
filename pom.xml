@@ -24,7 +24,6 @@
                     </plugin>
                 </plugins>
             </build>
-
     <dependencies>
         <dependency>
             <groupId>io.vertx</groupId>

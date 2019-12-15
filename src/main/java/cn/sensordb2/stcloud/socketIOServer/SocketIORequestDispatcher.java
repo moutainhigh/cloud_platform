@@ -52,6 +52,7 @@ public class SocketIORequestDispatcher {
         requestHandlerMap.put("control.GetCurrentState",new GetCurrentState());
         requestHandlerMap.put("control.OperateMission",new OperateMission());
         requestHandlerMap.put("control.GetHomeLocation",new GetHomeLocation());
+        requestHandlerMap.put("control.Move", new MoveToOnePose());
         requestHandlerMap.put("control.SetWaypointMission",new SetWaypointMission());
         requestHandlerMap.put("control.GetCurrentLocation",new GetCurrentLocation());
         requestHandlerMap.put("control.GetConnection",new GetConnection());

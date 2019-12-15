@@ -10,12 +10,11 @@ import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 import java.util.List;
 
-public class GetPose extends RequestHandler {
+public class GetPoseOld extends RequestHandler {
 
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) {

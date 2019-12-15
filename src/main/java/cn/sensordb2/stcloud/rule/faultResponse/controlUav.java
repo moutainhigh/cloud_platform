@@ -12,7 +12,6 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 import io.vertx.core.json.JsonObject;
 
 public class controlUav extends RequestHandler {
-
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) throws InterruptedException {
         JsonObject params = request.getParams();
@@ -28,10 +27,10 @@ public class controlUav extends RequestHandler {
                 .put("position", new JsonObject().put("x", position.getDouble("x"))
                         .put("y", position.getDouble("y"))
                         .put("z", position.getDouble("z"))));
-        System.err.println(jsonMsg);
+//        System.err.println(jsonMsg);
         poseTopic.publish(new Message(jsonMsg.toString()));
         ConnectionInfo connectionInfo1 = ClientManager.getInstance()
-                .getConnectionInfo("firefly" + params.getString("source" + "_user"));
+                .getConnectionInfo("firefly" + params.getString("source" )+ "_user");
         connectionInfo1.setTo("firefly"+params.getString("source"));
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
@@ -39,5 +38,6 @@ public class controlUav extends RequestHandler {
         result.put("message", "controlUav success");
         ResponseHandlerHelper.success(connectionInfo, request, result);
         return;
+
     }
 }

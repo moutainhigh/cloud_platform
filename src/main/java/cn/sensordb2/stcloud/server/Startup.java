@@ -38,20 +38,10 @@ public class Startup {
         String databaseConfFile = Globals.getDatabaseConfFile();
         Database database = Database.createInstance(vertx, databaseConfFile);
         //初始化无人机可用状态
-        database.getMongoClient().dropCollection("AvailableUavs", res -> {
+        database.getMongoClient().dropCollection("usedFrList", res -> {
         });
-        database.getMongoClient().createCollection("AvailableUavs", res -> {
+        database.getMongoClient().createCollection("usedFrList", res -> {
         });
-        database.getMongoClient()
-                .insert("AvailableUavs", new JsonObject().put("uav", "firefly5").put("flag", "0"),
-                        res -> {
-                        })
-                .insert("AvailableUavs", new JsonObject().put("uav", "firefly6").put("flag", "0"),
-                        res -> {
-                        })
-                .insert("AvailableUavs", new JsonObject().put("uav", "firefly7").put("flag", "0"),
-                        res -> {
-                        });
 
         //启动http服务器
         try {
