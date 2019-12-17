@@ -1,5 +1,6 @@
 package cn.sensordb2.stcloud.ros;
 
+import cn.sensordb2.stcloud.util.IniUtil;
 import edu.wpi.rail.jrosbridge.JRosbridge.WebSocketType;
 import edu.wpi.rail.jrosbridge.Ros;
 
@@ -9,7 +10,8 @@ public class RosInstance {
 
     private Ros ros;
     //ros master 所在的主机地址
-    private String hostName = "192.168.1.164";
+    private String hostName = IniUtil.getInstance().getServerHostName();
+
     //默认端口 9090
     private Integer port = 9090;
     //默认协议 websocket  http:ws  https:wss
