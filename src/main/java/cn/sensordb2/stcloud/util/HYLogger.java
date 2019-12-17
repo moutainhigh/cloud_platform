@@ -47,7 +47,7 @@ public class HYLogger{
         //HYLogger.resetAllLoggerFile();
         if(HYLogger.hasTrackedUser()) return ;
 ////todo
-//       logger.info(msg);
+       logger.info(msg);
     }
 
     public void error(Object msg) {

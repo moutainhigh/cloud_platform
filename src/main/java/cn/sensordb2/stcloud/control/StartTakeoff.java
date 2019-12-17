@@ -29,7 +29,7 @@ public class StartTakeoff extends RequestHandler {
                 .put("params", request.getParams());
         Double height = jsonObject.getJsonObject("params").getDouble("height");
         if (height == null) {
-            height = 10d;
+            height = 5d;
         }
 //        String topicSuffix = "/command/pose";
         Ros ros = RosInstance.getInstance().getRos();

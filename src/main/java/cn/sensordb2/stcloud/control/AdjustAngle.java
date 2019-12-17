@@ -75,7 +75,7 @@ public class AdjustAngle extends RequestHandler {
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);
-        result.put("message", "askadjust success");
+        result.put("message", "askAdjust success");
         ResponseHandlerHelper.success(connectionInfo, request, result);
         return;
     }

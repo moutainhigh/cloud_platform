@@ -1,17 +1,39 @@
 package cn.sensordb2.stcloud.httpApiServer;
 
+import cn.sensordb2.stcloud.control.AdjustAngle;
+import cn.sensordb2.stcloud.control.Bind;
+import cn.sensordb2.stcloud.control.CollectData;
+import cn.sensordb2.stcloud.control.GetConnection;
+import cn.sensordb2.stcloud.control.GetCurrentLocation;
+import cn.sensordb2.stcloud.control.GetCurrentState;
+import cn.sensordb2.stcloud.control.GetHomeLocation;
+import cn.sensordb2.stcloud.control.GetPicture;
+import cn.sensordb2.stcloud.control.MoveToOnePose;
+import cn.sensordb2.stcloud.control.MoveToOnePoseForRule;
+import cn.sensordb2.stcloud.control.OperateMission;
+import cn.sensordb2.stcloud.control.RandomCrashOne;
+import cn.sensordb2.stcloud.control.RescueUav;
+import cn.sensordb2.stcloud.control.SetWaypointMission;
+import cn.sensordb2.stcloud.control.StartLanding;
+import cn.sensordb2.stcloud.control.StartTakeoff;
+import cn.sensordb2.stcloud.control.UploadMission;
+import cn.sensordb2.stcloud.data.GetAllPose;
+import cn.sensordb2.stcloud.data.GetData;
+import cn.sensordb2.stcloud.rule.faultResponse.GetPoseNew;
+import cn.sensordb2.stcloud.rule.faultResponse.controlUav;
+import cn.sensordb2.stcloud.rule.qos.RecoveryQoS;
+import cn.sensordb2.stcloud.rule.qos.getPose;
+import cn.sensordb2.stcloud.rule.swarmCreate.attackEnemy;
+import cn.sensordb2.stcloud.rule.swarmCreate.getEmPose;
 import cn.sensordb2.stcloud.server.ConnectionInfo;
 import cn.sensordb2.stcloud.server.ResponseHandlerHelper;
 import cn.sensordb2.stcloud.server.common.RequesResponseLoggerTool;
 import cn.sensordb2.stcloud.server.common.RequestDispatcher;
 import cn.sensordb2.stcloud.server.common.RequestHandler;
-import cn.sensordb2.stcloud.server.handler.common.CreateAppAccount;
 import cn.sensordb2.stcloud.server.handler.common.Ping;
-import cn.sensordb2.stcloud.server.handler.common.RelayMsg;
 import cn.sensordb2.stcloud.server.message.Request;
 import cn.sensordb2.stcloud.server.message.ResponseErrorCode;
 import cn.sensordb2.stcloud.server.message.ResponseErrorMsg;
-import cn.sensordb2.stcloud.user.Login;
 import cn.sensordb2.stcloud.util.Tools;
 
 import java.util.Hashtable;
@@ -40,10 +62,35 @@ public class HttpServerRequestDispatcher {
      }
 
     private void initCommon() {
-        requestHandlerMap.put("common.createAppAccount", new CreateAppAccount());
+//        requestHandlerMap.put("common.createAppAccount", new CreateAppAccount());
         requestHandlerMap.put("common.ping", new Ping());
-        requestHandlerMap.put("common.RelayMsg", new RelayMsg());
-        requestHandlerMap.put("user.Login",new Login());
+//        requestHandlerMap.put("common.RelayMsg", new RelayMsg());
+//        requestHandlerMap.put("user.Login",new Login());
+        requestHandlerMap.put("data.GetData",new GetData());
+        requestHandlerMap.put("data.GetAllPose",new GetAllPose());
+        requestHandlerMap.put("control.AdjustAngle",new AdjustAngle());
+        requestHandlerMap.put("control.CollectData",new CollectData());
+        requestHandlerMap.put("control.StartTakeoff",new StartTakeoff());
+        requestHandlerMap.put("control.StartLanding",new StartLanding());
+        requestHandlerMap.put("control.UploadMission",new UploadMission());
+        requestHandlerMap.put("control.GetCurrentState",new GetCurrentState());
+        requestHandlerMap.put("control.OperateMission",new OperateMission());
+        requestHandlerMap.put("control.GetHomeLocation",new GetHomeLocation());
+        requestHandlerMap.put("control.MoveToOnePose", new MoveToOnePose());
+        requestHandlerMap.put("control.MoveToOnePoseForRule", new MoveToOnePoseForRule());
+        requestHandlerMap.put("control.SetWaypointMission",new SetWaypointMission());
+        requestHandlerMap.put("control.GetCurrentLocation",new GetCurrentLocation());
+        requestHandlerMap.put("control.GetConnection",new GetConnection());
+        requestHandlerMap.put("control.Bind",new Bind());
+        requestHandlerMap.put("control.GetPicture", new GetPicture());
+        requestHandlerMap.put("control.RandomCrashOne", new RandomCrashOne());
+        requestHandlerMap.put("control.RescueUav", new RescueUav());
+        requestHandlerMap.put("rule.faultResponse.getPose", new GetPoseNew());
+        requestHandlerMap.put("rule.faultResponse.controlUav", new controlUav());
+        requestHandlerMap.put("rule.qos.getPose", new getPose());
+        requestHandlerMap.put("rule.qos.RecoveryQos", new RecoveryQoS());
+        requestHandlerMap.put("rule.swarm.getPose", new getEmPose());
+        requestHandlerMap.put("rule.swarm.attack", new attackEnemy());
     }
 
     public static HttpServerRequestDispatcher getInstance() {

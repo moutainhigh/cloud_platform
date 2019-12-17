@@ -10,26 +10,40 @@ import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GetPose extends RequestHandler {
 
+    public static Map<String, String> fruavMap = new HashMap() {
+    };
+
+    static {
+        fruavMap.put("fireflyfr1", "fireflyfr1");
+        fruavMap.put("fireflyfr2", "fireflyfr2");
+        fruavMap.put("fireflyfr3", "fireflyfr3");
+    }
+
+
     @Override
+
     public void handle(ConnectionInfo connectionInfo, Request request) {
         Ros ros = RosInstance.getInstance().getRos();
         int uavNums = 4;
-        int frUavNums = 3;
+
         String uavName = "firefly";
         String fruavName = "fireflyfr";
         JsonObject uavs = new JsonObject(); //key ： “1” ；“2”等字符数字
         JsonObject fruavs = new JsonObject();//同上
-
+        JsonObject fireflyMap = request.getParams().getJsonObject("fireflyMap");
         for (int i = 1; i <= uavNums; i++) {
             int count = i;
-            Topic topic = new Topic(ros, "/" + uavName + i + "/ground_truth/pose",
+            Topic topic = new Topic(ros,
+                    "/" + (fireflyMap.containsKey(uavName + i) ? fireflyMap.getString(uavName + i)
+                            : (uavName + i)) + "/ground_truth/pose",
                     "geometry_msgs/Pose");
             topic.subscribe(new TopicCallback() {
                 @Override
@@ -41,66 +55,22 @@ public class GetPose extends RequestHandler {
                 }
             });
         }
-
-        for (int i = 1; i <= frUavNums; i++) {
+        int i = 1;
+        for (String frUavNums : fruavMap.keySet()) {
             int count = i;
-            Topic topic = new Topic(ros, "/" + fruavName + i + "/ground_truth/pose",
+            Topic topic = new Topic(ros, "/" + frUavNums + "/ground_truth/pose",
                     "geometry_msgs/Pose");
             topic.subscribe(new TopicCallback() {
                 @Override
                 public void handleMessage(Message message) {
                     String position = message.toJsonObject().getJsonObject("position")
                             .toString();
-                    fruavs.put(String.valueOf(count), new JsonObject(position));
+                    fruavs.put(String.valueOf(frUavNums.charAt(9)), new JsonObject(position));
                     topic.unsubscribe();
                 }
             });
+            i++;
         }
-
-//        Topic topic1 = new Topic(ros, "/firefly1/ground_truth/pose",
-//                "geometry_msgs/Pose");
-//        topic1.subscribe(new TopicCallback() {
-//            @Override
-//            public void handleMessage(Message message) {
-//                String position = message.toJsonObject().getJsonObject("position")
-//                        .toString();
-//                uavs.put("1", new JsonObject(position));
-//                topic1.unsubscribe();
-//            }
-//        });
-//        Topic topic2 = new Topic(ros, "/firefly2/ground_truth/pose",
-//                "geometry_msgs/Pose");
-//        topic2.subscribe(new TopicCallback() {
-//            @Override
-//            public void handleMessage(Message message) {
-//                String position = message.toJsonObject().getJsonObject("position")
-//                        .toString();
-//                uavs.put("2", new JsonObject(position));
-//                topic2.unsubscribe();
-//            }
-//        });
-//        Topic topic3 = new Topic(ros, "/firefly3/ground_truth/pose",
-//                "geometry_msgs/Pose");
-//        topic3.subscribe(new TopicCallback() {
-//            @Override
-//            public void handleMessage(Message message) {
-//                String position = message.toJsonObject().getJsonObject("position")
-//                        .toString();
-//                uavs.put("3", new JsonObject(position));
-//                topic3.unsubscribe();
-//            }
-//        });
-//        Topic topic4 = new Topic(ros, "/firefly4/ground_truth/pose",
-//                "geometry_msgs/Pose");
-//        topic4.subscribe(new TopicCallback() {
-//            @Override
-//            public void handleMessage(Message message) {
-//                String position = message.toJsonObject().getJsonObject("position")
-//                        .toString();
-//                uavs.put("4", new JsonObject(position));
-//                topic4.unsubscribe();
-//            }
-//        });
 
         boolean uavsflag = true;
         boolean frUavsFlag = true;
@@ -108,30 +78,19 @@ public class GetPose extends RequestHandler {
             if (uavs.size() == uavNums) {
                 uavsflag = false;
             }
-            if (fruavs.size() == frUavNums) {
+            if (fruavs.size() == fruavMap.size()) {
                 frUavsFlag = false;
             }
 //            System.out.println(flag);
             try {
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
         //从fruav中移除已被使用的飞机
-        MongoClient mongoClient = Database.getInstance().getMongoClient();
-        mongoClient.find("usedFrList", new JsonObject(), res -> {
-            if (res.succeeded()) {
-                List<JsonObject> result = res.result();
-                if (result.size() != 0) {
-                    for (int i = 0; i < result.size(); i++) {
-                        String usedFrNo = result.get(i).getString("usedFr");
-                        fruavs.remove(usedFrNo);
-                    }
-                }
-            }
-        });
+
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);

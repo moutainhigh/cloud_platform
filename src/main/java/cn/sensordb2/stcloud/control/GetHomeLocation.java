@@ -14,9 +14,7 @@ public class GetHomeLocation extends RequestHandler {
 
     @Override
     public void handle(ConnectionInfo connectionInfo, Request request) {
-        JsonObject jsonObject = new JsonObject().put("method", request.getMethod()).put("from",
-                ClientManager.getInstance().getLocalConnectionInfo(connectionInfo.getTo())
-                        .getFrom());
+
 //        PushMessageUtil.pushMessage(connectionInfo,request,jsonObject,connectionInfo
 //        .getTo(), "RELAY_MSG", res->{
 ////            JsonObject result = new JsonObject();

@@ -22,6 +22,9 @@ public class HYHttpClient {
 	private static final String versionField = "v1";
 	private static final String apiURLPathPrefix = HttpApiServerIniUtil.getInstance().getServerURL() + versionField;
 
+	public static String getApiURLPathPrefix() {
+		return apiURLPathPrefix;
+	}
 	public static void clientAsyncGet(Vector<Request> requests) {
 		int i = 0;
 		Vertx vertx = Vertx.vertx();

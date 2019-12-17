@@ -279,7 +279,7 @@ public class ClientManager {
 		try {
 			OnlineUserMonitorRedisUtil.removeConnection(connectionInfo);
 			
-			logger.info(String.format("%s shutDown: %s", reason, connectionInfo.toJsonObject()), connectionInfo);
+//			logger.info(String.format("%s shutDown: %s", reason, connectionInfo.toJsonObject()), connectionInfo);
 			this.removeClient(connectionID);
 			connectionInfo.getNetSocket().close();
 			logger.info(String.format("call to.getNetSocket().close() for connection:%s reason:%s", connectionInfo.toJsonObject(), reason), connectionInfo);

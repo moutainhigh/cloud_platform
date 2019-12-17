@@ -1,15 +1,18 @@
-package cn.sensordb2.stcloud.api.tcp;
+package cn.sensordb2.stcloud.socketio.control;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
-
-import io.socket.emitter.Emitter;
 import io.socket.emitter.Emitter.Listener;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 
-public class iosocket {
+/**
+ * @author: leey
+ * @date: create on 2019/12/16 22:40
+ * @description:
+ */
+public class AdjustTest {
 
     public static void main(String[] args) {
         String url = "http://localhost:29090";
@@ -42,23 +45,21 @@ public class iosocket {
 //            },
 //                "id": "1"
 //            }
-            socket.on("response", new Listener() {
 
-                @Override
-                public void call(Object... objects) {
-                    System.out.println(new String((byte[]) objects[0])+"111111111111");
-                }
-            });
 
             socket.on(Socket.EVENT_CONNECTING, objects -> System.out.println("client: " + "连接中"));
             socket.on(Socket.EVENT_CONNECT_TIMEOUT,
                     objects -> System.out.println("client: " + "连接超时"));
             socket.on(Socket.EVENT_CONNECT_ERROR,
                     objects -> System.out.println("client: " + "连接失败"));
+            socket.on("response", objects -> {
+                System.out.println(new String((byte[]) objects[0]));
+                    }
+            );
             socket.connect();
             //login test
             JsonObject login = new JsonObject();
-            login.put("version", 1);
+            login.put("version", "1.0");
             login.put("method", "user.Login").put("params",
                     new JsonObject().put("username", "firefly2_user")
                             .put("hashedPassword", "111111")).put("id", 1);
@@ -70,38 +71,22 @@ public class iosocket {
             //"droneName":"#"
             //"methodName":"#"
             JsonObject bind = new JsonObject();
-            bind.put("version", 1);
+            bind.put("version", "1.0");
             bind.put("method", "control.Bind").put("params",
                     new JsonObject().put("droneName", "firefly2")
                             .put("methodName", "Bind")).put("id", 1);
             socket.emit("request", bind.toString());
-
-
-//            takeoff test
-            JsonObject obj1 = new JsonObject();
-            obj1.put("version", 1);
-            obj1.put("method", "control.StartTakeoff").put("params",
-                    new JsonObject().put("height", 10)).put("id", 2);
-            System.out.println("hello");
-            socket.emit("request", obj1.toString());
-//            //landing test
-//            JsonObject obj1 = new JsonObject();
-//            obj1.put("version", 1);
-//            obj1.put("method", "control.StartLanding").put("id", 2);
-//            System.out.println("control.StartLanding");
-//            socket.emit("request", obj1.toString());
-            //getPic test
-//            JsonObject obj1 = new JsonObject();
-//            obj1.put("version", 1);
-//            obj1.put("method", "control.SetWaypointMission").put("id", 2).put("params",
-//                    new JsonObject().put("waypointList", new JsonArray()
-//                            .add(new JsonObject().put("x", 1).put("y", 1).put("z", 1))
-//                            .add(new JsonObject().put("x", 2).put("y", 2).put("z", 2))
-//                            .add(new JsonObject().put("x", 3).put("y", 3).put("z", 3))));
-//            socket.emit("request", obj1.toString());
-//            Thread.sleep(1000);
-
-
+            //调整角度
+            JsonObject params = new JsonObject();
+            params.put("yaw", 0);
+            params.put("roll", 0);
+            params.put("pitch", 0);
+            JsonObject request = new JsonObject();
+            request.put("version", "1.0");
+            request.put("method", "control.AdjustAngle");
+            request.put("params", params);
+            request.put("id", 1);
+            socket.emit("request", request.toString());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

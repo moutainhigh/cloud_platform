@@ -1,5 +1,6 @@
 package cn.sensordb2.stcloud.util;
 
+import java.util.Vector;
 import org.apache.log4j.Logger;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
@@ -16,6 +17,7 @@ public class IniUtil {
 	private static String initFilePath = System.getenv("HY_HOME")==null?
 			"./cloud/conf/config.ini":System.getenv("HY_HOME")+"/cloud/conf/config.ini";
 	private static String Server = "server";
+	private static String Uav = "uav";
 	private static String SocketIO = "socketIO";
 	private static String Other = "other";
 	private static String Debug = "debug";
@@ -590,5 +592,10 @@ public class IniUtil {
 	public String getServerHostName() {
 		String serverHostName = ini.get(Server, "hostName");
 		return serverHostName;
+	}
+
+	public String[] getUavNames() {
+		String uavNames = ini.get(Uav, "uavNames");
+		return uavNames.split(",");
 	}
 }

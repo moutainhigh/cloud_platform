@@ -12,6 +12,8 @@ import edu.wpi.rail.jrosbridge.Ros;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -23,6 +25,15 @@ public class Startup {
             "./cloud/conf/log4j.properties"
             : System.getenv("HY_HOME") + "/cloud/conf/log4j.properties";
     public static Logger logger = Logger.getLogger(Startup.class);
+    public static Map fireflyMap = new HashMap<String, String>();
+
+    public static String getFireflyName(String key) {
+        if (fireflyMap.containsKey(key)) {
+            return (String) fireflyMap.get(key);
+        } else {
+            return key;
+        }
+    }
 
     public static void main(String[] args) {
         System.setProperty("vertx.logger-delegate-factory-class-name",
@@ -57,7 +68,9 @@ public class Startup {
             Ros ros = RosInstance.getInstance().getRos();
             logger.info("与ros Master 通过rosBridge建立 websocket连接");
             ros.connect();
-            //启动socket服务器
+
+            //启动http服务器
+            HttpApiServer.createInstance(vertx, database).run();
             HYSocketIOServer.getInstance().run();
         } catch (Exception e) {
             logger.error(

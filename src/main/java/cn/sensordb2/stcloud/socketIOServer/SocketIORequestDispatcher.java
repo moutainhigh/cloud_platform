@@ -1,6 +1,7 @@
 package cn.sensordb2.stcloud.socketIOServer;
 
 import cn.sensordb2.stcloud.control.*;
+import cn.sensordb2.stcloud.data.GetAllPose;
 import cn.sensordb2.stcloud.data.GetData;
 import cn.sensordb2.stcloud.rule.faultResponse.GetPose;
 import cn.sensordb2.stcloud.rule.faultResponse.controlUav;
@@ -44,6 +45,7 @@ public class SocketIORequestDispatcher {
         requestHandlerMap.put("common.RelayMsg", new RelayMsg());
         requestHandlerMap.put("user.Login",new Login());
         requestHandlerMap.put("data.GetData",new GetData());
+        requestHandlerMap.put("data.GetAllPose",new GetAllPose());
         requestHandlerMap.put("control.AdjustAngle",new AdjustAngle());
         requestHandlerMap.put("control.CollectData",new CollectData());
         requestHandlerMap.put("control.StartTakeoff",new StartTakeoff());
@@ -52,14 +54,15 @@ public class SocketIORequestDispatcher {
         requestHandlerMap.put("control.GetCurrentState",new GetCurrentState());
         requestHandlerMap.put("control.OperateMission",new OperateMission());
         requestHandlerMap.put("control.GetHomeLocation",new GetHomeLocation());
-        requestHandlerMap.put("control.Move", new MoveToOnePose());
+        requestHandlerMap.put("control.MoveToOnePose", new MoveToOnePose());
+        requestHandlerMap.put("control.MoveToOnePoseForRule", new MoveToOnePoseForRule());
         requestHandlerMap.put("control.SetWaypointMission",new SetWaypointMission());
         requestHandlerMap.put("control.GetCurrentLocation",new GetCurrentLocation());
         requestHandlerMap.put("control.GetConnection",new GetConnection());
         requestHandlerMap.put("control.Bind",new Bind());
-        requestHandlerMap.put("control.GetPicture", new GetPicture());
-        requestHandlerMap.put("control.RandomCrashOne", new RandomCrashOne());
-        requestHandlerMap.put("control.RescueUav", new RescueUav());
+//        requestHandlerMap.put("control.GetPicture", new GetPicture());
+//        requestHandlerMap.put("control.RandomCrashOne", new RandomCrashOne());
+//        requestHandlerMap.put("control.RescueUav", new RescueUav());
         requestHandlerMap.put("rule.faultResponse.getPose", new GetPose());
         requestHandlerMap.put("rule.faultResponse.controlUav", new controlUav());
         requestHandlerMap.put("rule.qos.getPose", new getPose());

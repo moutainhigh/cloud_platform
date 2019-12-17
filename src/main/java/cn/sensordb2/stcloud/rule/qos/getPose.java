@@ -24,10 +24,14 @@ public class getPose extends RequestHandler {
         JsonObject uavs = new JsonObject(); //key ： “1” ；“2”等字符数字
         JsonObject qosuavs = new JsonObject();//同上
         //加入基站信息
+        JsonObject fireflyMap = request.getParams().getJsonObject("fireflyMap");
         uavs.put("0", new JsonObject().put("x", 0).put("y", 0).put("z", 5));
         for (int i = 1; i <= uavNums; i++) {
             int count = i;
-            Topic topic = new Topic(ros, "/" + uavName + i + "/ground_truth/pose",
+            Topic topic = new Topic(ros,
+                    "/" + (fireflyMap.containsKey(uavName + i) ? fireflyMap.getString(uavName + i)
+                            : (uavName + i))
+                            + "/ground_truth/pose",
                     "geometry_msgs/Pose");
             topic.subscribe(new TopicCallback() {
                 @Override
@@ -39,30 +43,10 @@ public class getPose extends RequestHandler {
                 }
             });
         }
-
-        for (int i = 0; i < qosUavNums; i++) {
-            int count = i;
-            Topic topic = new Topic(ros, "/" + qosuavName + i + "/ground_truth/pose",
-                    "geometry_msgs/Pose");
-            topic.subscribe(new TopicCallback() {
-                @Override
-                public void handleMessage(Message message) {
-                    String position = message.toJsonObject().getJsonObject("position")
-                            .toString();
-                    qosuavs.put(String.valueOf(count), new JsonObject(position));
-                    topic.unsubscribe();
-                }
-            });
-        }
-
         boolean uavsflag = true;
-        boolean qosUavsFlag = true;
-        while (uavsflag || qosUavsFlag) {
-            if (uavs.size() == (uavNums+1)) {
+        while (uavsflag) {
+            if (uavs.size() == (uavNums + 1)) {
                 uavsflag = false;
-            }
-            if (qosuavs.size() == qosUavNums) {
-                qosUavsFlag = false;
             }
 //            System.out.println(flag);
             try {

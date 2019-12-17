@@ -17,7 +17,7 @@ import edu.wpi.rail.jrosbridge.messages.Message;
 import io.vertx.core.json.JsonObject;
 
 //test pass
-public class MoveToOnePose extends RequestHandler {
+public class MoveToOnePoseForRule extends RequestHandler {
 
 
     @Override
@@ -26,7 +26,7 @@ public class MoveToOnePose extends RequestHandler {
                 .put("params", request.getParams());
         JsonObject params = request.getParams();
         Ros ros = RosInstance.getInstance().getRos();
-        Topic poseTopic = new Topic(ros, "/" + connectionInfo.getTo() + "/command/pose",
+        Topic poseTopic = new Topic(ros, "/" + params.getString("id") + "/command/pose",
                 "geometry_msgs/PoseStamped");
         JsonObject jsonMsg = new JsonObject();
 

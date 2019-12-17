@@ -9,6 +9,7 @@ import edu.wpi.rail.jrosbridge.Ros;
 import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.callback.TopicCallback;
 import edu.wpi.rail.jrosbridge.messages.Message;
+import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 
 public class getEmPose extends RequestHandler {
@@ -17,7 +18,7 @@ public class getEmPose extends RequestHandler {
     public void handle(ConnectionInfo connectionInfo, Request request)  {
         Ros ros = RosInstance.getInstance().getRos();
         JsonObject params = request.getParams();
-        String enemyUav = "firefly7";
+        String enemyUav = "fireflyem1";
         JsonObject ePose = new JsonObject();
         Topic topic1 = new Topic(ros, "/"+enemyUav+"/ground_truth/pose",
                 "geometry_msgs/Pose");

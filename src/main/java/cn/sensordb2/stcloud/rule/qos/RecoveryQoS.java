@@ -68,41 +68,23 @@ public class RecoveryQoS extends RequestHandler {
         Ros ros = RosInstance.getInstance().getRos();
         JsonObject params = request.getParams();
         JsonArray array = params.getJsonArray("uavs");
-        int uavNo = 4;
+        int uavNo = 0;
         for (int i = 0; i < array.size(); i++) {
             JsonObject jsonObject = array.getJsonObject(i);
             JsonObject positionI = jsonObject.getJsonObject("spos");
             JsonObject positionJ = jsonObject.getJsonObject("dpos");
-//            double distance =
-//                    Math.sqrt(Math.abs(
-//                            (positionI.getDouble("x") * positionI
-//                                    .getDouble("x")
-//                                    + positionI.getDouble("y")
-//                                    * positionI
-//                                    .getDouble("y")
-//                                    + positionI.getDouble("z")
-//                                    * positionI
-//                                    .getDouble("z")) - (
-//                                    positionJ.getDouble("x") * positionJ
-//                                            .getDouble("x")
-//                                            + positionJ.getDouble("y")
-//                                            * positionJ
-//                                            .getDouble("y")
-//                                            + positionJ.getDouble("z")
-//                                            * positionJ
-//                                            .getDouble("z"))));
             double x = positionI.getDouble("x") - positionJ.getDouble("x");
             double y = positionI.getDouble("y") - positionJ.getDouble("y");
             double z = positionI.getDouble("z") - positionJ.getDouble("z");
             double distance = Math.sqrt(x * x + y * y + z * z);
-            System.out.println(x);
-            System.out.println(y);
-            System.out.println(z);
-            System.out.println(distance+"111111111111111111");
+//            System.out.println(x);
+//            System.out.println(y);
+//            System.out.println(z);
+//            System.out.println(distance+"111111111111111111");
             int num = (int) Math.floor(distance / 10) ;
             for (int j = 0; j < num; j++) {
-                int uav = uavNo + j + 1;
-                Topic poseTopic = new Topic(ros, "/firefly" + uav + "/command/pose",
+                int uav = uavNo+ 1;
+                Topic poseTopic = new Topic(ros, "/fireflyqos" + uav + "/command/pose",
                         "geometry_msgs/PoseStamped");
                 JsonObject jsonMsg = new JsonObject();
                 jsonMsg.put("header", new JsonObject().put("frame_id", "world"));
@@ -112,12 +94,13 @@ public class RecoveryQoS extends RequestHandler {
                                 .put("y", (positionI.getDouble("y"))-(y / (num + 1) * (j + 1)))
                                 .put("z", (positionI.getDouble("z"))-(z / (num + 1) * (j + 1)))));
                 poseTopic.publish(new Message(jsonMsg.toString()));
-                uavNo = uavNo + num;
-                System.out.println(poseTopic.getName());
-                System.out.println(jsonMsg.toString());
+//                System.out.println(poseTopic.getName());
+//                System.out.println(jsonMsg.toString());
+                uavNo = uav;
             }
 
         }
+
         request.setResponseSuccess(true);
         JsonObject result = new JsonObject();
         result.put("code", 1);

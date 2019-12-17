@@ -195,37 +195,37 @@ public class HttpApiServer {
 				HttpServerResponseUtil.error400(routingContext);
 				return;
 			}
-
-			if(headerUserName!=null&&headerHashedPassword!=null) {
-				JsonObject userPasswordQuery = new JsonObject().put("userName", headerUserName).put("hashedPassword",
-						headerHashedPassword);
-				mongoClient.find(Account.accountTable, userPasswordQuery, res -> {
-					if (!res.succeeded()) {
-						HttpServerResponseUtil.serverError(routingContext);
-						return;
-					}
-					if (res.result().size() == 0) {
-						logger.error(String.format("userPasswordQuery:%s error", userPasswordQuery));
-						HttpServerResponseUtil.error403(routingContext, -1);
-						return;
-					}
-
-					Object accountTypeObject = res.result().get(0).getValue("type");
-					int accountType = AccountType.UNKNOWN;
-					if (accountTypeObject instanceof String) {
-						accountType = AccountType.getAccountType(accountTypeObject.toString());
-					} else {
-						accountType = res.result().get(0).getInteger("type");
-					}
-					connectionInfo.setUser(headerUserName, accountType);
-					HttpServerRequestDispatcher.getInstance().dispatcher(Debug.getDebugSessionID(routingContext),
-							httpRequestBody.toString());
-					this.recoredHttpSessionData(routingContext.request().connection(),
-							routingContext, "", headerUserName);
-
-				});
-				return;
-			}
+//
+//			if(headerUserName!=null&&headerHashedPassword!=null) {
+//				JsonObject userPasswordQuery = new JsonObject().put("userName", headerUserName).put("hashedPassword",
+//						headerHashedPassword);
+//				mongoClient.find(Account.accountTable, userPasswordQuery, res -> {
+//					if (!res.succeeded()) {
+//						HttpServerResponseUtil.serverError(routingContext);
+//						return;
+//					}
+//					if (res.result().size() == 0) {
+//						logger.error(String.format("userPasswordQuery:%s error", userPasswordQuery));
+//						HttpServerResponseUtil.error403(routingContext, -1);
+//						return;
+//					}
+//
+//					Object accountTypeObject = res.result().get(0).getValue("type");
+//					int accountType = AccountType.UNKNOWN;
+//					if (accountTypeObject instanceof String) {
+//						accountType = AccountType.getAccountType(accountTypeObject.toString());
+//					} else {
+//						accountType = res.result().get(0).getInteger("type");
+//					}
+//					connectionInfo.setUser(headerUserName, accountType);
+//					HttpServerRequestDispatcher.getInstance().dispatcher(Debug.getDebugSessionID(routingContext),
+//							httpRequestBody.toString());
+//					this.recoredHttpSessionData(routingContext.request().connection(),
+//							routingContext, "", headerUserName);
+//
+//				});
+//				return;
+//			}
 
 			//no complete headerUserName and headerHashedPassword
 			HttpServerRequestDispatcher.getInstance().dispatcher(Debug.getDebugSessionID(routingContext),

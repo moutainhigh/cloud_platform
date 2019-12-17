@@ -3,6 +3,7 @@ package cn.sensordb2.stcloud.control;
 import cn.sensordb2.stcloud.ros.RosInstance;
 import cn.sensordb2.stcloud.server.ConnectionInfo;
 import cn.sensordb2.stcloud.server.ResponseHandlerHelper;
+import cn.sensordb2.stcloud.server.Startup;
 import cn.sensordb2.stcloud.server.common.RequestHandler;
 import cn.sensordb2.stcloud.server.message.Request;
 import cn.sensordb2.stcloud.util.PushMessageUtil;
@@ -39,7 +40,7 @@ public class SetWaypointMission extends RequestHandler {
         }
         waypoint.put("points", points);
         Ros ros = RosInstance.getInstance().getRos();
-        Topic topic = new Topic(ros, "/"+connectionInfo.getTo()+"/command/trajectory",
+        Topic topic = new Topic(ros, "/"+ Startup.getFireflyName(connectionInfo.getTo())+"/command/trajectory",
                 "trajectory_msgs/MultiDOFJointTrajectory");
         topic.publish(new Message(waypoint.toString()));
         request.setResponseSuccess(true);

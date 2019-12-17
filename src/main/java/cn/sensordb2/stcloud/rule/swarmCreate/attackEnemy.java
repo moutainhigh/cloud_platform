@@ -10,6 +10,8 @@ import edu.wpi.rail.jrosbridge.Topic;
 import edu.wpi.rail.jrosbridge.messages.Message;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import java.util.Iterator;
+import java.util.Map.Entry;
 import org.json.JSONObject;
 
 public class attackEnemy extends RequestHandler {
@@ -18,17 +20,20 @@ public class attackEnemy extends RequestHandler {
     public void handle(ConnectionInfo connectionInfo, Request request) throws InterruptedException {
         Ros ros = RosInstance.getInstance().getRos();
         JsonObject params = request.getParams();
-        JsonArray jsonArray = params.getJsonArray("uavs");
-        for (int i = 0; i < jsonArray.size(); i++) {
-            Topic topic = new Topic(ros, "/firefly"+ (i+1) + "/command/pose",
+        String uavName = "firefly";
+        JsonObject jsonObject = params.getJsonObject("uavs");
+        Iterator<Entry<String, Object>> iterator = jsonObject.iterator();
+        while (iterator.hasNext()) {
+            Entry<String, Object> next = iterator.next();
+            Topic topic = new Topic(ros, "/" + next.getKey() + "/command/pose",
                     "geometry_msgs/PoseStamped");
-            JsonObject position = jsonArray.getJsonObject(i);
+            JsonObject position = (JsonObject)next.getValue();
             JsonObject jsonMsg = new JsonObject();
             jsonMsg.put("header", new JsonObject().put("frame_id", "world"));
             jsonMsg.put("pose", new JsonObject()
                     .put("position", new JsonObject().put("x", position.getDouble("x"))
                             .put("y", position.getDouble("y"))
-                            .put("z", 10D)));
+                            .put("z", position.getDouble("z"))));
             topic.publish(new Message(jsonMsg.toString()));
         }
         request.setResponseSuccess(true);
